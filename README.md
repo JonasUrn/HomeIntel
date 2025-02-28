@@ -3,6 +3,16 @@
 ## Overview
 HomeIntel is a project designed to evaluate real estate properties based on their qualities and listing price.
 
+## Rules
+Ensure you are following these rules for development:
+- Create a new branch in your computer for each feature
+- Branch name: First letter of name + first letter of surname + feature name. Ex.: JU-create-header | JU - Jonas Urnezius
+- Do development on that branch
+- Push branch to Github
+- Open a new Pull Request
+- Assign a peer-reviewer
+- Each small task has its own branch!
+
 ## Installation & Setup
 To get started with HomeIntel, follow these steps:
 
