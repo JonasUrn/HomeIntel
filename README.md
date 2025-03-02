@@ -3,6 +3,13 @@
 ## Overview
 HomeIntel is a project designed to evaluate real estate properties based on their qualities and listing price.
 
+## React Code Rules
+Ensure you are following these rules for development:
+- Use arrow functions: const fnc = () => {}
+- USE MODULE STYLES!!! File names: master.module.css => usage in file: styles.exampleClass => read more here: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
+- Each component has its own file
+- Each component group has its own folder
+
 ## Rules
 Ensure you are following these rules for development:
 - Create a new branch in your computer for each feature
