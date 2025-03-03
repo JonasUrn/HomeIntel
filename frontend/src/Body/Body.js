@@ -3,11 +3,11 @@ import React from "react";
 import styles from "./body.module.css";
 
 import Information from "./Information";
-import TopPart from "./TopPart";
+import Header from "../header/header.js";
 
 const Body = () => {
     return <div className={styles.body}>
-        <TopPart />
+        <Header />
         <Information />
     </div>
 }
