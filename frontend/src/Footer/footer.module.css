@@ -1,0 +1,44 @@
+.footer {
+    background-color: #2563eb;
+    color: #dbeafe;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid #ffffff;
+}
+
+.socialMedia {
+    margin-bottom: 10px;
+}
+
+.socialMedia a {
+    margin: 0 15px;
+    font-size: 2rem;
+    /* Larger icon size */
+    color: #dbeafe;
+    text-decoration: none;
+}
+
+.socialMedia a:hover {
+    color: #ffffff;
+    /* Change icon color on hover */
+}
+
+.copyRight {
+    margin-bottom: 10px;
+}
+
+.footerLinks {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.footerLinks a {
+    color: #dbeafe;
+    text-decoration: none;
+}
+
+.footerLinks a:hover {
+    color: #ffffff;
+}
