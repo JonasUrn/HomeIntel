@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./body.module.css";
-import {Information} from "../imports/importFiles.js";
+import Information from "./Information";
 
 const Body = () => {
     return <div className={styles.body}>

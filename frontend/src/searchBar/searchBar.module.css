@@ -59,6 +59,8 @@
 .searchBoxText{
     margin-top: 25px;
     font-size: 25px;
+    width: 100%;
+    text-align: center;
 }
 .searchButton{
     position: absolute;
@@ -88,5 +90,8 @@
     }
     .searchButton{
         margin-left: 77.5%;
+    }
+    .searchBoxText{
+        font-size: 22px;
     }
 }

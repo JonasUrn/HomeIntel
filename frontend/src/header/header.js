@@ -1,7 +1,9 @@
 import {React, useState} from "react";
-import {FontAwesomeIcon, faBars, styles} from "../imports/importFiles.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import styles from "./header.module.css";
 import SideNav, { NavItem, NavText } from '@trendmicro/react-sidenav';
-import SearchBar from "../searchBar/searchBar.js"; //Ikeltas taip, kadangi per importFiles tsg neveikia
+import SearchBar from "../searchBar/searchBar.js";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 const Header = () => {

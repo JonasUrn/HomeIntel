@@ -1,6 +1,8 @@
 import React from 'react';
-import {Body, Footer, Header} from "../imports/importFiles.js";
-import styles from "./allComponents.module.css";
+import Body from './Body/Body.js';
+import Footer from './Footer/Footer.js';
+import Header from './header/header.js';
+import styles from "./app.css";
 
 function App() {
 

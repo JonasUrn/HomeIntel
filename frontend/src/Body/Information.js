@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./information.module.css";
-import {cardsData, Card} from "../imports/importFiles.js";
+import cardsData from "./cardsData.js";
+import Card from "./Card.js";
 
 const Information = () => {
     return (

@@ -103,6 +103,7 @@ div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::
         margin-left: 20px !important;
     }
     .mainSideBar{
+        margin-top: 55px;
         height: 250px;
         width: 100%;
         padding: 20px;
