@@ -1,15 +1,12 @@
 import React from "react";
-
 import styles from "./information.module.css";
-
-import cardData from "./cardsData";
-
-import Card from "./Card";
+import cardsData from "./cardsData.js";
+import Card from "./Card.js";
 
 const Information = () => {
     return (
         <div className={styles.container}>
-            {cardData.map((card, index) => (
+            {cardsData.map((card, index) => (
                 <Card key={index} {...card} />
             ))}
         </div>

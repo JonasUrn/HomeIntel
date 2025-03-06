@@ -1,0 +1,127 @@
+.header {
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url("../images/green_bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.navbar{
+    margin: 15px auto 0px auto;
+    z-index: 100;
+    height: 40px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+.headerBar{
+    height: 75px;
+    background-color: rgb(53,109,90, 0.9);
+}
+.button, .mainSideBar{
+    display: none;
+}
+div[class^="header_navbar"] > div > a{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]){
+    font-size: 20px;
+    position: relative;
+    font-weight: 350;
+    transition: all 0.3s ease-out;
+    transform: scale(1);
+}
+div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover{
+    transform: scale(1.05);
+}
+div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::after{
+    background-color: white;
+    width: 100%;
+    height: 2px;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    animation: grow 0.3s ease-out;
+}
+.otherLinks{
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto 0;
+}
+.websiteUrl{
+    font-size: 26px;
+    margin: auto;
+    font-weight: 600;
+}
+.urlDiv{
+    width: 30%;
+    display: flex;
+}
+
+.bars{
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    height: 60%;
+}
+@media screen and (max-width: 1150px) {
+    .navbar{
+        margin-top: 15px;
+    }
+    .urlDiv{
+        width: 100%;
+        text-align: center;
+    }
+    .otherLinks{
+        display: none;
+    }
+    .navbar{
+        gap: 2rem;
+    }
+    .button{
+        width: 40px;
+        height: 40px;
+        background-color: rgb(53,109,90);
+        border-radius: 25%;
+        top: 15px;
+        right: 20px;
+        border: none;
+        position: absolute;
+        display: block;
+        z-index: 1000;
+        cursor: pointer !important;
+    }
+    .button:active .websiteUrl{
+        margin-left: 20px !important;
+    }
+    .mainSideBar{
+        margin-top: 55px;
+        height: 250px;
+        width: 100%;
+        padding: 20px;
+        top: 55px;
+        position: absolute;
+        display: block;
+        background-color: rgba(53,109,90, 0.2) !important;
+    }
+    div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::after{
+        content: none;
+    }
+}
+
+@keyframes grow {
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}
