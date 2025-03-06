@@ -79,3 +79,14 @@
     width: 20px;
     height: 20px;
 }
+@media screen and (max-width: 1150px){
+    .searchBarStatistics{
+        margin-top: 20%;
+    }
+    .searchDiv{
+        width: 85%;
+    }
+    .searchButton{
+        margin-left: 77.5%;
+    }
+}

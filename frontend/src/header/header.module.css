@@ -89,7 +89,7 @@ div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::
     .button{
         width: 40px;
         height: 40px;
-        background-color: rgb(13, 36, 88);
+        background-color: rgb(53,109,90);
         border-radius: 25%;
         top: 15px;
         right: 20px;
@@ -109,7 +109,7 @@ div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::
         top: 55px;
         position: absolute;
         display: block;
-        background-color: rgba(13, 36, 88, 0.2) !important;
+        background-color: rgba(53,109,90, 0.2) !important;
     }
     div[class^="header_navbar"] > div > a:not(a[class^="header_websiteUrl"]):hover::after{
         content: none;
