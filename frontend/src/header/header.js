@@ -1,4 +1,4 @@
-import {React, useState} from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
@@ -24,16 +24,16 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            <button className={styles.button} onClick={ () => setSideBar(!showSideBar)}>
+            <button className={styles.button} onClick={() => setSideBar(!showSideBar)}>
                 <FontAwesomeIcon icon={faBars} className={styles.bars} />
             </button>
             {showSideBar && (
                 <SideNav className={styles.mainSideBar}>
                     <SideNav.Nav className={styles.sidebarMenu}>
-                        <NavItem><NavText className={styles.otherLink_} style={{fontSize: '20px', fontWeight: '350'}}> Evaluation </NavText></NavItem>
-                        <NavItem><NavText className={styles.investmentSimulator_} style={{fontSize: '20px', fontWeight: '350'}}> Investment simulator </NavText></NavItem>
-                        <NavItem><NavText className={styles.howSystemWorks_} style={{fontSize: '20px', fontWeight: '350'}}> How system works </NavText></NavItem>
-                        <NavItem><NavText className={styles.comparisonTool_} style={{fontSize: '20px', fontWeight: '350'}}> Other link </NavText></NavItem>
+                        <NavItem><NavText className={styles.otherLink_} style={{ fontSize: '20px', fontWeight: '350' }}> Evaluation </NavText></NavItem>
+                        <NavItem><NavText className={styles.investmentSimulator_} style={{ fontSize: '20px', fontWeight: '350' }}> Investment simulator </NavText></NavItem>
+                        <NavItem><NavText className={styles.howSystemWorks_} style={{ fontSize: '20px', fontWeight: '350' }}> How system works </NavText></NavItem>
+                        <NavItem><NavText className={styles.comparisonTool_} style={{ fontSize: '20px', fontWeight: '350' }}> Other link </NavText></NavItem>
                     </SideNav.Nav>
                 </SideNav>
             )}

@@ -1,7 +1,7 @@
 import styles from "./searchBar.module.css";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const ShowForm = () => {
     useEffect(() => {
@@ -22,11 +22,11 @@ const SearchBar = () => {
                 <div className={styles.searchBarDiv}>
                     <input type="text" placeholder="Enter property listing URL" className={styles.inputField}></input>
                     <button className={styles.searchButton} onClick={handleModalForm}>
-                        <FontAwesomeIcon icon={faArrowRight} className={styles.arrow}/>
+                        <FontAwesomeIcon icon={faArrowRight} className={styles.arrow} />
                     </button>
-                </div>  
+                </div>
             </div>
-            {clicked && <ShowForm/>}
+            {clicked && <ShowForm />}
         </div>
     )
 }
