@@ -1,40 +1,37 @@
-const cardData = [
+const aboutUsCards = [
     {
         title: "Enter Property Details",
-        text: "Manually input property details or provide a listing link to fetch data automatically.",
-        icon: "fa-solid fa-keyboard",
-        backText: "Our system extracts key information to analyze the property effectively."
+        text: "You can manually input the details of a property or simply provide a link to a real estate listing, which will automatically fetch the property’s information.",
+        backText: "Our system processes the property details you've provided, extracting key features such as the property size, location, and amenities to analyze it effectively."
     },
     {
         title: "Set Your Preferences",
-        text: "Select what matters most—location, price, size, amenities, or investment potential.",
-        icon: "fa-solid fa-sliders-h",
-        backText: "We tailor the analysis based on your priorities to deliver the most relevant insights."
+        text: "Once the property details are in place, you can set your preferences by selecting what's most important to you—whether that's the location, price, size, amenities, or potential for investment.",
+        backText: "We use these preferences to personalize the analysis, making sure that the valuation matches your specific needs and expectations."
     },
     {
         title: "AI-Powered Analysis",
-        text: "Our AI processes market trends, similar listings, and property details to determine a fair price.",
-        icon: "fa-solid fa-robot",
-        backText: "We leverage machine learning to ensure accuracy and transparency in valuation."
-    },
-    {
-        title: "Fair Price Estimation",
-        text: "Get an AI-driven price estimate to know if the listing price is fair or overpriced.",
-        icon: "fa-solid fa-dollar-sign",
-        backText: "We compare it with similar properties and historical data for a reliable valuation."
-    },
-    {
-        title: "Property Score",
-        text: "Receive a score out of 10 based on price, location, condition, and market demand.",
-        icon: "fa-solid fa-star",
-        backText: "A higher score means better value compared to similar listings in the market."
-    },
-    {
-        title: "Make Smarter Decisions",
-        text: "Use AI insights to negotiate better or explore alternative listings that match your needs.",
-        icon: "fa-solid fa-lightbulb",
-        backText: "We empower you with data-driven decisions for real estate investments."
+        text: "Our advanced AI evaluates market trends, compares the property with similar listings, and takes into account all available details to give an accurate fair price estimate for the property.",
+        backText: "By leveraging machine learning and cutting-edge algorithms, we ensure that the valuation is not only accurate but also transparent, providing you with a deeper understanding of the property's market value."
     }
 ];
 
-export default cardData;
+const howToUseCards = [
+    {
+        title: "Enter Property Details",
+        text: "Manually input property details or provide a link to fetch data from a real estate listing.",
+        backText: "Our system will extract and process the relevant data to evaluate the property for you."
+    },
+    {
+        title: "Set Your Preferences",
+        text: "Choose the criteria that matter most—whether it’s the location, size, price, or investment potential.",
+        backText: "Based on your preferences, we personalize the analysis to provide the most relevant results."
+    },
+    {
+        title: "AI-Powered Analysis",
+        text: "Our AI analyzes the property using up-to-date market trends, comparable listings, and the property’s features to generate a fair price estimate.",
+        backText: "We use powerful machine learning tools to ensure our valuations are accurate and reflective of the real estate market."
+    }
+];
+
+export { howToUseCards, aboutUsCards };

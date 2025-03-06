@@ -1,10 +1,12 @@
 .footer {
-    background-color: #2563eb;
+    background-color: #24473c;
     color: #dbeafe;
     padding: 20px 0;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 1rem;
     border-top: 1px solid #ffffff;
+    width: 100vw;
+    margin: 0;
 }
 
 .socialMedia {
@@ -14,14 +16,12 @@
 .socialMedia a {
     margin: 0 15px;
     font-size: 2rem;
-    /* Larger icon size */
     color: #dbeafe;
     text-decoration: none;
 }
 
 .socialMedia a:hover {
     color: #ffffff;
-    /* Change icon color on hover */
 }
 
 .copyRight {
