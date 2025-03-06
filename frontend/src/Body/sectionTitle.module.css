@@ -1,0 +1,39 @@
+.sectionHeader {
+    text-align: center;
+    padding-top: 10px;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 40px;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position: relative;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    ;
+}
+
+.title {
+    font-size: 2.5rem;
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #bfc3ca;
+    margin-top: 10px;
+    font-weight: normal;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 800px) {
+    .sectionHeader {
+        width: 90%;
+        padding: 5px;
+    }
+}

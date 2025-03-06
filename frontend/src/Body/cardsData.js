@@ -1,40 +1,45 @@
-const cardData = [
+import { info1, info2, info3, how1, how2, how3 } from "../imports/importPictures.js";
+
+const aboutUsCards = [
     {
         title: "Enter Property Details",
-        text: "Manually input property details or provide a listing link to fetch data automatically.",
-        icon: "fa-solid fa-keyboard",
-        backText: "Our system extracts key information to analyze the property effectively."
+        text: "We make property evaluation simple—just input key details or provide a real estate listing link, and we’ll handle the rest.",
+        backText: "Too often, buyers struggle to assess a property’s true value. Our system ensures transparency, preventing misleading listings and giving you a clear, data-driven evaluation.",
+        image: info1,
     },
     {
         title: "Set Your Preferences",
-        text: "Select what matters most—location, price, size, amenities, or investment potential.",
-        icon: "fa-solid fa-sliders-h",
-        backText: "We tailor the analysis based on your priorities to deliver the most relevant insights."
+        text: "Everyone has different needs when buying a home. We let you prioritize what matters most—whether it's location, price, or future investment potential.",
+        backText: "Brokers often push properties that benefit them, not you. Our tool puts the power back in your hands, making sure you get the best deal based on your preferences.",
+        image: info2,
     },
     {
         title: "AI-Powered Analysis",
-        text: "Our AI processes market trends, similar listings, and property details to determine a fair price.",
-        icon: "fa-solid fa-robot",
-        backText: "We leverage machine learning to ensure accuracy and transparency in valuation."
-    },
-    {
-        title: "Fair Price Estimation",
-        text: "Get an AI-driven price estimate to know if the listing price is fair or overpriced.",
-        icon: "fa-solid fa-dollar-sign",
-        backText: "We compare it with similar properties and historical data for a reliable valuation."
-    },
-    {
-        title: "Property Score",
-        text: "Receive a score out of 10 based on price, location, condition, and market demand.",
-        icon: "fa-solid fa-star",
-        backText: "A higher score means better value compared to similar listings in the market."
-    },
-    {
-        title: "Make Smarter Decisions",
-        text: "Use AI insights to negotiate better or explore alternative listings that match your needs.",
-        icon: "fa-solid fa-lightbulb",
-        backText: "We empower you with data-driven decisions for real estate investments."
+        text: "We use AI to eliminate uncertainty in real estate pricing, providing a fair value estimate so you know exactly what a property is worth.",
+        backText: "No more overpaying or falling for sales tactics. Our AI-driven analysis ensures you get an unbiased valuation, helping you make confident decisions and find your dream home at the right price.",
+        image: info3,
     }
 ];
 
-export default cardData;
+const howToUseCards = [
+    {
+        title: "Enter Property Details",
+        text: "Manually input property details or provide a link to fetch data from a real estate listing.",
+        backText: "Our system will extract and process the relevant data to evaluate the property for you.",
+        image: how1,
+    },
+    {
+        title: "Set Your Preferences",
+        text: "Choose the criteria that matter most—whether it’s the location, size, price, or investment potential.",
+        backText: "Based on your preferences, we personalize the analysis to provide the most relevant results.",
+        image: how2,
+    },
+    {
+        title: "AI-Powered Analysis",
+        text: "Our AI analyzes the property using up-to-date market trends, comparable listings, and the property’s features to generate a fair price estimate.",
+        backText: "We use powerful machine learning tools to ensure our valuations are accurate and reflective of the real estate market.",
+        image: how3,
+    }
+];
+
+export { howToUseCards, aboutUsCards };
