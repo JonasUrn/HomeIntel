@@ -55,4 +55,12 @@
     .columnSmall {
         flex: 1;
     }
+
+    .image {
+        display: none;
+    }
+
+    .row {
+        justify-content: center;
+    }
 }

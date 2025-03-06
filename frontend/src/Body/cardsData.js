@@ -1,18 +1,23 @@
+import { info1, info2, info3, how1, how2, how3 } from "../imports/importPictures.js";
+
 const aboutUsCards = [
     {
         title: "Enter Property Details",
-        text: "You can manually input the details of a property or simply provide a link to a real estate listing, which will automatically fetch the property’s information.",
-        backText: "Our system processes the property details you've provided, extracting key features such as the property size, location, and amenities to analyze it effectively."
+        text: "We make property evaluation simple—just input key details or provide a real estate listing link, and we’ll handle the rest.",
+        backText: "Too often, buyers struggle to assess a property’s true value. Our system ensures transparency, preventing misleading listings and giving you a clear, data-driven evaluation.",
+        image: info1,
     },
     {
         title: "Set Your Preferences",
-        text: "Once the property details are in place, you can set your preferences by selecting what's most important to you—whether that's the location, price, size, amenities, or potential for investment.",
-        backText: "We use these preferences to personalize the analysis, making sure that the valuation matches your specific needs and expectations."
+        text: "Everyone has different needs when buying a home. We let you prioritize what matters most—whether it's location, price, or future investment potential.",
+        backText: "Brokers often push properties that benefit them, not you. Our tool puts the power back in your hands, making sure you get the best deal based on your preferences.",
+        image: info2,
     },
     {
         title: "AI-Powered Analysis",
-        text: "Our advanced AI evaluates market trends, compares the property with similar listings, and takes into account all available details to give an accurate fair price estimate for the property.",
-        backText: "By leveraging machine learning and cutting-edge algorithms, we ensure that the valuation is not only accurate but also transparent, providing you with a deeper understanding of the property's market value."
+        text: "We use AI to eliminate uncertainty in real estate pricing, providing a fair value estimate so you know exactly what a property is worth.",
+        backText: "No more overpaying or falling for sales tactics. Our AI-driven analysis ensures you get an unbiased valuation, helping you make confident decisions and find your dream home at the right price.",
+        image: info3,
     }
 ];
 
@@ -20,17 +25,20 @@ const howToUseCards = [
     {
         title: "Enter Property Details",
         text: "Manually input property details or provide a link to fetch data from a real estate listing.",
-        backText: "Our system will extract and process the relevant data to evaluate the property for you."
+        backText: "Our system will extract and process the relevant data to evaluate the property for you.",
+        image: how1,
     },
     {
         title: "Set Your Preferences",
         text: "Choose the criteria that matter most—whether it’s the location, size, price, or investment potential.",
-        backText: "Based on your preferences, we personalize the analysis to provide the most relevant results."
+        backText: "Based on your preferences, we personalize the analysis to provide the most relevant results.",
+        image: how2,
     },
     {
         title: "AI-Powered Analysis",
         text: "Our AI analyzes the property using up-to-date market trends, comparable listings, and the property’s features to generate a fair price estimate.",
-        backText: "We use powerful machine learning tools to ensure our valuations are accurate and reflective of the real estate market."
+        backText: "We use powerful machine learning tools to ensure our valuations are accurate and reflective of the real estate market.",
+        image: how3,
     }
 ];
 
