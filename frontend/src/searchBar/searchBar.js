@@ -1,32 +1,35 @@
 import styles from "./searchBar.module.css";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faKeyboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import ModalWindow from "../ModalWindow/modal.js";
 
-const ShowForm = () => {
-    useEffect(() => {
-        alert("This is form");
-    }, []);
-    return <div className="form"></div>
-}
 const SearchBar = () => {
     const [clicked, setClick] = useState(false);
+    const [switchToTextBox, setSwitch] = useState(false);
 
-    const handleModalForm = () => {
-        setClick(!clicked);
+    const HandleInputField = () => {
+        return <input type="text" placeholder="Enter property listing URL" className={styles.inputField}></input>
+    }
+    const HandleTextBoxField = () => {
+        return <textarea type="text" placeholder="Describe your poperty" className={styles.inputTextBox}></textarea>
     }
     return (
         <div className={styles.searchBarStatistics}>
             <div className={styles.searchDiv}>
                 <div className={styles.searchBoxText}>Begin the evaluation of your home here</div>
                 <div className={styles.searchBarDiv}>
-                    <input type="text" placeholder="Enter property listing URL" className={styles.inputField}></input>
-                    <button className={styles.searchButton} onClick={handleModalForm}>
+                    <button className={styles.keyboardBtn} onClick={() => setSwitch(!switchToTextBox)}>
+                        <FontAwesomeIcon icon={faKeyboard} className={styles.keyboard} />
+                    </button>
+                    {!switchToTextBox && <HandleInputField />}
+                    {switchToTextBox && <HandleTextBoxField />}
+                    <button className={styles.searchButton} onClick={() => setClick(true)}>
                         <FontAwesomeIcon icon={faArrowRight} className={styles.arrow} />
                     </button>
                 </div>
             </div>
-            {clicked && <ShowForm />}
+            {clicked && <ModalWindow isOpen={clicked==true} onClose={clicked==false}/>}
         </div>
     )
 }
