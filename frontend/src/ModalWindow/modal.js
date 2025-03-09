@@ -4,7 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
-const ModalWindow = ({ isOpen, onClose }) => {
+const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
+
     return (
         <Modal
             open={isOpen}
@@ -12,7 +13,7 @@ const ModalWindow = ({ isOpen, onClose }) => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box 
+            <Box
                 sx={{
                     position: "absolute",
                     top: "50%",
@@ -26,12 +27,13 @@ const ModalWindow = ({ isOpen, onClose }) => {
                 }}
             >
                 <Typography id="modal-modal-title" variant="h6" component="h2">
-                    Text in a modal
+                    {"Passed from link " + isLink}
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                    Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    {data}
                 </Typography>
                 <Button onClick={onClose} sx={{ mt: 2 }} variant="contained">Close</Button>
+
             </Box>
         </Modal>
     );

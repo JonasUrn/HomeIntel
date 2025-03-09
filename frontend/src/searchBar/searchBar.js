@@ -7,30 +7,67 @@ import ModalWindow from "../ModalWindow/modal.js";
 const SearchBar = () => {
     const [clicked, setClick] = useState(false);
     const [switchToTextBox, setSwitch] = useState(false);
+    const [inputValue, setInputValue] = useState(""); // Stores user input
 
-    const HandleInputField = () => {
-        return <input type="text" placeholder="Enter property listing URL" className={styles.inputField}></input>
-    }
-    const HandleTextBoxField = () => {
-        return <textarea type="text" placeholder="Describe your poperty" className={styles.inputTextBox}></textarea>
-    }
+    const handleModalOpen = () => {
+        setClick(true);
+    };
+
+    const handleModalClose = () => {
+        setClick(false);
+    };
+
     return (
         <div className={styles.searchBarStatistics}>
             <div className={styles.searchDiv}>
                 <div className={styles.searchBoxText}>Begin the evaluation of your home here</div>
+
                 <div className={styles.searchBarDiv}>
-                    <button className={styles.keyboardBtn} onClick={() => setSwitch(!switchToTextBox)}>
-                        <FontAwesomeIcon icon={faKeyboard} className={styles.keyboard} />
-                    </button>
-                    {!switchToTextBox && <HandleInputField />}
-                    {switchToTextBox && <HandleTextBoxField />}
-                    <button className={styles.searchButton} onClick={() => setClick(true)}>
+                    {!switchToTextBox ? (
+                        <input
+                            type="text"
+                            placeholder="Enter property listing URL"
+                            className={styles.inputField}
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                        />
+                    ) : (
+                        <textarea
+                            placeholder="Describe your property"
+                            className={styles.inputTextBox}
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                        />
+                    )}
+                    <button className={styles.searchButton} onClick={handleModalOpen}>
                         <FontAwesomeIcon icon={faArrowRight} className={styles.arrow} />
                     </button>
                 </div>
+                <div className={styles.toggleContainer}>
+                    <button
+                        className={`${styles.toggleButton} ${!switchToTextBox ? styles.active : ""}`}
+                        onClick={() => { setSwitch(false); setInputValue(""); }}
+                    >
+                        Link
+                    </button>
+                    <button
+                        className={`${styles.toggleButton} ${switchToTextBox ? styles.active : ""}`}
+                        onClick={() => { setSwitch(true); setInputValue(""); }}
+                    >
+                        Enter Details
+                    </button>
+                </div>
             </div>
-            {clicked && <ModalWindow isOpen={clicked==true} onClose={clicked==false}/>}
+            {clicked && (
+                <ModalWindow
+                    isOpen={clicked}
+                    onClose={handleModalClose}
+                    data={inputValue}
+                    isLink={!switchToTextBox}
+                />
+            )}
         </div>
-    )
-}
+    );
+};
+
 export default SearchBar;
