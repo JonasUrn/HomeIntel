@@ -1,5 +1,5 @@
 import styles from "./searchBar.module.css";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faKeyboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import ModalWindow from "../ModalWindow/modal.js";
