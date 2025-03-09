@@ -1,10 +1,17 @@
-.modalContent {
-    background-color: white;
-    width: 50%;
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    height: 50%;
-    border-radius: 20px;
-    padding: 20px;
+.btn{
+    margin-left: auto !important;
+    width: 125px;
+    background-color: rgb(53,109,90, 0.9) !important;
+}
+.modalBoxDiv{
+    display: flex;
+    flex-direction: column;
+}
+.questionsDiv{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+}
+tr[class^='row_']{
+    border: 1px solid black !important;
 }
