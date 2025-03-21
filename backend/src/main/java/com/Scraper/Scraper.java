@@ -18,33 +18,7 @@ public class Scraper {
     private Dictionary<String, String> dictionary;
     private String agentData;
 
-    public Scraper(String linkToRealEstate){
-        for(int i = 0; i < allowedLinks.length; i++){
-            if(linkToRealEstate.contains(allowedLinks[i])){
-                this.link = linkToRealEstate;
-                try {
-                    UserAgentGenerator userAgentObj = new UserAgentGenerator(1);
-                    String agent = userAgentObj.getUserAgent();
-                    this.agentData = agent;
-                    // System.out.printf("Got agent: %s\n", agent);
-                    
-                    this.doc = Jsoup.connect(linkToRealEstate)
-                                    .userAgent(agent)
-                                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-                                    .header("Accept-Language", "en-US,en;q=0.5")
-                                    .header("Referer", "https://www.aruodas.lt/")
-                                    .header("Connection", "keep-alive")
-                                    .timeout(timeoutSeconds * 1000)
-                                    .get();
-                    this.dictionary = new Hashtable<>();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    public Dictionary<String, String> getObjDetails(){
+        public Dictionary<String, String> getObjDetails(){
         Elements dataArr = doc.select("dl[class='obj-details']");
         Elements titles = dataArr.select("dt");
         Elements innerHTMLData = dataArr.select("span[class='fieldValueContainer']");  
@@ -68,5 +42,31 @@ public class Scraper {
     }
     public String getAgent(){
         return agentData;
+    }
+
+    public Scraper(String linkToRealEstate){
+        for(int i = 0; i < allowedLinks.length; i++){
+            if(linkToRealEstate.contains(allowedLinks[i])){
+                this.link = linkToRealEstate;
+                try {
+                    UserAgentGenerator userAgentObj = new UserAgentGenerator(1);
+                    String agent = userAgentObj.getUserAgent();
+                    this.agentData = agent;
+                    System.out.println("Got agent: %s\n", agent);
+                    
+                    this.doc = Jsoup.connect(linkToRealEstate)
+                                    .userAgent(agent)
+                                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
+                                    .header("Accept-Language", "en-US,en;q=0.5")
+                                    .header("Referer", "https://www.aruodas.lt/")
+                                    .header("Connection", "keep-alive")
+                                    .timeout(timeoutSeconds * 1000)
+                                    .get();
+                    this.dictionary = new Hashtable<>();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
