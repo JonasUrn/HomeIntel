@@ -14,6 +14,31 @@ public class PromptService {
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 
+            //wowzers
+    private JsonObject parseResponse(String jsonResponse) {
+        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+        JsonArray candidates = jsonObject.getAsJsonArray("candidates");
+
+        String jsonText = null;
+        if (candidates != null && candidates.size() > 0) {
+            JsonObject candidate = candidates.get(0).getAsJsonObject();
+            JsonObject content = candidate.getAsJsonObject("content");
+            JsonArray parts = content.getAsJsonArray("parts");
+            if (parts != null && parts.size() > 0) {
+                JsonObject part = parts.get(0).getAsJsonObject();
+                jsonText = part.get("text").getAsString();
+            }
+        }
+
+        if (jsonText != null && jsonText.startsWith("```json")) {
+            jsonText = jsonText.replace("```json", "").replace("```", "").trim();
+
+            JsonObject parsedJson = JsonParser.parseString(jsonText).getAsJsonObject();
+            return parsedJson;
+        }
+        return null;
+    }
+
     public JsonObject getStructuredResponse(String user_prompt) throws IOException {
         System.out.println("Sending request to Gemini API...");
         OkHttpClient client = new OkHttpClient();
@@ -70,31 +95,5 @@ public class PromptService {
             JsonObject parsedResponse = parseResponse(responseBody);
             return parsedResponse;
         }
-    }
-
-    private JsonObject parseResponse(String jsonResponse) {
-        JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-        JsonArray candidates = jsonObject.getAsJsonArray("candidates");
-        System.out.println("Parsing response...");
-
-        // Extract the text from the first candidate
-        String jsonText = null;
-        if (candidates != null && candidates.size() > 0) {
-            JsonObject candidate = candidates.get(0).getAsJsonObject();
-            JsonObject content = candidate.getAsJsonObject("content");
-            JsonArray parts = content.getAsJsonArray("parts");
-            if (parts != null && parts.size() > 0) {
-                JsonObject part = parts.get(0).getAsJsonObject();
-                jsonText = part.get("text").getAsString();
-            }
-        }
-
-        if (jsonText != null && jsonText.startsWith("```json")) {
-            jsonText = jsonText.replace("```json", "").replace("```", "").trim();
-
-            JsonObject parsedJson = JsonParser.parseString(jsonText).getAsJsonObject();
-            return parsedJson;
-        }
-        return null;
     }
 }
