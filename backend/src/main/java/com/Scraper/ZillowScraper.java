@@ -55,13 +55,15 @@ public class ZillowScraper implements ScraperMethods{
                 }
                 else if(textValue.contains("sqft")){
                     Double sqM_sqM = Double.parseDouble(price_address.get(i-1).toString().replace(",", ""))*feet_meter_mult_value;
-                    dictionary.put("House area", String.format("%,.2f", sqM_sqM));
-                    hauseArea = sqM_sqM;
+                    String area = String.format("%.2f", sqM_sqM);
+                    dictionary.put("House area", area);
+                    hauseArea = Double.parseDouble(area);
                 }
                 // System.out.printf("\n%s)\t%s", i+1, price_address.get(i).toString());
             }
-            Double totalArea = lotarea + hauseArea;
-            dictionary.put("Total area", totalArea.toString());
+            String finalArea = String.format("%.2f", lotarea + hauseArea);
+            Double arr = lotarea + hauseArea;
+            dictionary.put("Total area", arr.toString());
         }
         catch(Exception e){
             System.out.printf("\nError  of taking data. Target link: %s\n", linkToObject);
@@ -91,6 +93,9 @@ public class ZillowScraper implements ScraperMethods{
                     }
                     dictionary.put("Lotarea", String.format("%,.2f", finalVal).toString());
                 }
+            }
+            if(dictionary.size() == 1){
+                return Double.parseDouble("0");
             }
             return Double.parseDouble(dictionary.get("Lotarea").replace(",", ""));
         }

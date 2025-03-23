@@ -12,7 +12,7 @@ import com.Scraper.AruodasScraper;
 public class Scraper{
     private final Dictionary<String, String[]> allowedLinks = new Hashtable<>();
     private String[] links;
-    private final int timeoutSeconds = 3;
+    private final int timeoutSeconds = 10;
     private String linkDomain;
     private String link;
     private String linkToObject;
@@ -82,19 +82,19 @@ public class Scraper{
                     case "https://en.aruodas.lt":
                         AruodasScraper aruodas = new AruodasScraper(allowedLinks, link, doc);
                         dict = aruodas.getObjDetails(); 
-                        aruodas.PrintData("\n");
+                        // aruodas.PrintData("\n");
                         break;
                     case "https://www.zillow.com":
                         ZillowScraper zillow = new ZillowScraper(allowedLinks, link, doc, this.linkToObject);
-                        zillow.getObjDetails();
-                        zillow.PrintData("\n");
+                        dict = zillow.getObjDetails();
+                        // zillow.PrintData("\n");
                         break;
                     default:
                         break;
                 }
             }
             catch (Exception e){
-                e.printStackTrace();
+                System.out.println("Error in GetResults() method Scraper klases");
             }
         }
         return dict;
