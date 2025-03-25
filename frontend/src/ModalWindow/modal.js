@@ -46,10 +46,11 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
             var newParams = modifySelection();
             console.log(newParams);
             if (isLink) {
-                response = await ax.post("http://localhost:8080/api/evaluate/link", {
-                    link: data,
-                    selectedValues: newParams
+                var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
+                    data: data,
+                    selectedValues: newParams,
                 });
+                console.log(`Response: ${Object.keys(response)}`);
             } else {
                 response = await ax.post("http://localhost:8080/api/evaluate/prompt", {
                     prompt: data,
