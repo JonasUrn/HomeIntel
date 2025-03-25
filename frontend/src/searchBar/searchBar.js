@@ -9,7 +9,7 @@ import ax from "axios";
 const SearchBar = () => {
     const [clicked, setClick] = useState(false);
     const [switchToTextBox, setSwitch] = useState(false);
-    const [inputValue, setInputValue] = useState(""); 
+    const [inputValue, setInputValue] = useState("");
     const [error, setError] = useState(null);
 
     const handleModalOpen = () => {
@@ -20,19 +20,20 @@ const SearchBar = () => {
         setClick(false);
     };
 
-    const scraperHandler = async () => {
-        try{
-            const data = document.querySelector("input[id='realEstateLink_']");
-            const link = data.value;
-            var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
-                data: link
-            });
-            console.log(`Response: ${Object.keys(response)}`);
-        }
-        catch{
-            console.log("Klaida");
-        }
-    }
+    // const scraperHandler = async () => {
+    //     try{
+    //         const data = document.querySelector("input[id='realEstateLink_']");
+    //         const link = data.value;
+    //         var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
+    //             data: link
+    //         });
+    //         console.log(`Response: ${Object.keys(response)}`);
+    //     }
+    //     catch{
+    //         console.log("Klaida");
+    //     }
+    // }
+
     return (
         <div className={styles.searchBarStatistics}>
             <div className={styles.searchDiv}>
@@ -56,7 +57,7 @@ const SearchBar = () => {
                             onChange={(e) => setInputValue(e.target.value)}
                         />
                     )}
-                    <button className={styles.searchButton} onClick={() => {handleModalOpen(); scraperHandler(); }}>
+                    <button className={styles.searchButton} onClick={() => { handleModalOpen() }}>
                         <FontAwesomeIcon icon={faArrowRight} className={styles.arrow} />
                     </button>
                 </div>
