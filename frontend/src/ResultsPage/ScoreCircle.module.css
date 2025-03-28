@@ -1,0 +1,44 @@
+.circleWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 20%;
+}
+
+.outline {
+    border: 25px solid;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Circular outline */
+    border-radius: 50%;
+    /* Make it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blackCircle {
+    width: 90%;
+    aspect-ratio: 1 / 1;
+    background-color: black;
+    border-radius: 50%;
+    /* Make it circular */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: absolute;
+    /* Ensures it's positioned inside the outline circle */
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+.score {
+    font-size: 2rem;
+    font-weight: bold;
+}
