@@ -8,7 +8,7 @@ const ImageSection = () => {
     return <div className={styles.imageSection}>
         <div className={styles.circlesContainer}>
             <ScoreCircle text1="Score" score={8.5} outoften={true} />
-            <ScoreCircle text1="Fair Price" score={demoPrice} outoften={false} />
+            <ScoreCircle text1="Fair Price" score={demoPrice} outoften={false} text2={90000} />
         </div>
     </div>
 };

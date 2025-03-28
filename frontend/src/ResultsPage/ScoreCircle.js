@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ScoreCircle.module.css";
 
-const ScoreCircle = ({ text1, score, outoften }) => {
+const ScoreCircle = ({ text1, score, outoften, text2 }) => {
     const fillPercentage = (score / 10) * 100;
     const outlineGradient = getOutlineGradient(score);
 
@@ -16,7 +16,7 @@ const ScoreCircle = ({ text1, score, outoften }) => {
             <div className={styles.blackCircle}>
                 <span className={styles.title}>{text1}</span>
                 <span className={styles.score}>
-                    {outoften ? `${score} / 10` : score}
+                    {outoften ? `${score} / 10` : text2}
                 </span>
             </div>
         </div>
