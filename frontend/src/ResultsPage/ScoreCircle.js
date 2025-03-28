@@ -24,19 +24,13 @@ const ScoreCircle = ({ text1, score, outoften }) => {
 };
 
 const getOutlineGradient = (score) => {
-    if (score <= 2) {
-        return "#800080, #FF0000";
+    if (score <= 3) {
+        return "#FF0000";
     }
-    if (score <= 4) {
-        return "#800080, #FF0000, #FF8C00";
+    if (score <= 7) {
+        return "rgb(190, 211, 4)";
     }
-    if (score <= 6) {
-        return "#800080, #FF0000, #FF8C00, #FFFF00";
-    }
-    if (score <= 8) {
-        return "#800080, #FF0000, #FF8C00, #FFFF00,rgb(174, 212, 3)";
-    }
-    return "#800080, #FF0000, #FF8C00, #FFFF00,rgb(98, 199, 4), rgb(0, 255, 64)";
+    return "rgb(0, 255, 64)";
 };
 
 export default ScoreCircle;

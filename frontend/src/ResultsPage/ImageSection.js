@@ -3,7 +3,7 @@ import styles from "./ImageSection.module.css";
 import ScoreCircle from "./ScoreCircle";
 
 const ImageSection = () => {
-    var demoPrice = ((165000 / 170000) * 10).toFixed(2);
+    var demoPrice = ((90000 / 170000) * 10).toFixed(2);
     console.log(demoPrice);
     return <div className={styles.imageSection}>
         <div className={styles.circlesContainer}>
