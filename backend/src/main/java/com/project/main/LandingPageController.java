@@ -7,8 +7,6 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import com.PromptAPI.*;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -67,8 +65,12 @@ public class LandingPageController {
         }
     }
 
-    // Describe a 3-bedroom apartament in vilnius centre with A economic class in a
-    // three floor house when the apartamaent is in the 2nd floor.
+    // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
+    // klase, pastatymas 2023, centrinis sildymas
+
+    // https://www.aruodas.lt/butai-vilniuje-justiniskese-kopenhagos-g-talino-modernus-komfortiskas-naujas-1-3387648/?pos=3&search_pos=16
+
+    // https://www.zillow.com/homedetails/1111-Delsea-Dr-Westville-NJ-08093/38758443_zpid/
 
     @PostMapping("/evaluate/scraper")
     public Dictionary<String, String> getScraper(@RequestBody Map<String, Object> linkToRealEstate)
