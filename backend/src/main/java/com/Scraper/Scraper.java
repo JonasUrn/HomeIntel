@@ -75,25 +75,26 @@ public class Scraper{
     }
 
     public Dictionary<String, String> GetResults(){
-        Dictionary<String, String> dict = null;
+        Dictionary<String, String> dict = new Hashtable<>();
         if(isCorrectData){
             try{
                 switch (this.linkDomain) {
                     case "https://en.aruodas.lt":
                         AruodasScraper aruodas = new AruodasScraper(allowedLinks, link, doc);
                         dict = aruodas.getObjDetails(); 
-                        // aruodas.PrintData("\n");
+                        aruodas.PrintData("\n");
                         break;
                     case "https://www.zillow.com":
                         ZillowScraper zillow = new ZillowScraper(allowedLinks, link, doc, this.linkToObject);
                         dict = zillow.getObjDetails();
-                        // zillow.PrintData("\n");
+                        zillow.PrintData("\n");
                         break;
                     default:
                         break;
                 }
             }
             catch (Exception e){
+                e.printStackTrace();
                 System.out.println("Error in GetResults() method Scraper klases");
             }
         }
