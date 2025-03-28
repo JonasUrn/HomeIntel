@@ -42,7 +42,7 @@ public class ZillowScraper implements ScraperMethods{
                 String textValue = price_address.get(i).toString().toLowerCase();
 
                 if(textValue.contains("$") && textValue.contains(",")){
-                    Double priceEur = Double.parseDouble(textValue.replace("$", "").replace(",", "").strip())*usdToEurRate;
+                    Double priceEur = Double.parseDouble(textValue.replace("$", "").replace(",", "").strip());
                     dictionary.put("Price", String.format("%.2f", priceEur));
                 }
                 else if(textValue.contains("beds") || textValue.contains("baths")){
@@ -54,16 +54,19 @@ public class ZillowScraper implements ScraperMethods{
                     if(i == 3){ dictionary.put("Address", address); }
                 }
                 else if(textValue.contains("sqft")){
-                    Double sqM_sqM = Double.parseDouble(price_address.get(i-1).toString().replace(",", ""))*feet_meter_mult_value;
+                    Double sqM_sqM = Double.parseDouble(price_address.get(i-1).toString().replace(",", ""));
                     String area = String.format("%.2f", sqM_sqM);
-                    dictionary.put("House area", area);
+                    dictionary.put("Area", area);
                     hauseArea = Double.parseDouble(area);
                 }
-                // System.out.printf("\n%s)\t%s", i+1, price_address.get(i).toString());
             }
-            String finalArea = String.format("%.2f", lotarea + hauseArea);
             Double arr = lotarea + hauseArea;
             dictionary.put("Total area", arr.toString());
+            
+            if(dictionary.get("Area") != null && dictionary.get("Price") != null){
+                Double price_per_sqFoot = Double.parseDouble(dictionary.get("Price")) / Double.parseDouble(dictionary.get("Area"));
+                dictionary.put("PricePer", price_per_sqFoot.toString());
+            }
         }
         catch(Exception e){
             System.out.printf("\nError  of taking data. Target link: %s\n", linkToObject);
@@ -76,7 +79,10 @@ public class ZillowScraper implements ScraperMethods{
     public double BuildDate(){
         try{
             Elements buildDate_Lotarea = doc.select(allowedLinks.get(link)[0]); //Getting building date and house lotarea
-            List<TextNode> build_date_lotarea = buildDate_Lotarea.get(3).getAllElements().textNodes();
+            List<TextNode> build_date_lotarea = null;
+            if(buildDate_Lotarea.size() >= 3){
+                build_date_lotarea = buildDate_Lotarea.get(3).getAllElements().textNodes();
+            }
 
             for(int i = 0; i < build_date_lotarea.size(); i++){
                 String textValue = build_date_lotarea.get(i).text().toLowerCase();
@@ -86,7 +92,7 @@ public class ZillowScraper implements ScraperMethods{
                 else if( i == 2 && (textValue.contains("square feet") || textValue.contains("acres"))){
                     Double finalVal = null;
                     if(textValue.contains("square feet")){
-                        finalVal = Double.parseDouble(textValue.split(" ")[0].replace(",", "")) * feet_meter_mult_value;
+                        finalVal = Double.parseDouble(textValue.split(" ")[0].replace(",", ""));
                     }
                     else{
                         finalVal = Double.parseDouble(textValue.split(" ")[0]) * acre_to_sqM;
