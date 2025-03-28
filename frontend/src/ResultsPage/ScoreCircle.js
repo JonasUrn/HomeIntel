@@ -2,16 +2,15 @@ import React from "react";
 import styles from "./ScoreCircle.module.css";
 
 const ScoreCircle = ({ text1, score, outoften }) => {
-    // Determine the color and size of the outline based on the score
-    const outlineColor = getOutlineColor(score);
-    const outlineSize = getOutlineSize(score);
+    const fillPercentage = (score / 10) * 100;
+    const outlineGradient = getOutlineGradient(score);
 
     return (
         <div className={styles.circleWrapper}>
             <div
                 className={styles.outline}
                 style={{
-                    borderColor: outlineColor,
+                    background: `conic-gradient(${outlineGradient} ${fillPercentage}%, transparent ${fillPercentage}% 100%)`,
                 }}
             ></div>
             <div className={styles.blackCircle}>
@@ -24,18 +23,20 @@ const ScoreCircle = ({ text1, score, outoften }) => {
     );
 };
 
-// Function to determine the outline color based on score
-const getOutlineColor = (score) => {
-    if (score <= 2) return "#800000"; // Red-Purple for very low score
-    if (score <= 4) return "#FF0000"; // Red for low score
-    if (score <= 6) return "#FF8C00"; // Orange for average score
-    if (score <= 8) return "#FFCC00"; // Yellow for good score
-    return "#FF6347"; // Light Red for excellent score
-};
-
-// Function to determine the outline size based on score
-const getOutlineSize = (score) => {
-    return 90 + score * 10; // The outline size increases with the score (size of black circle + 10px)
+const getOutlineGradient = (score) => {
+    if (score <= 2) {
+        return "#800080, #FF0000";
+    }
+    if (score <= 4) {
+        return "#800080, #FF0000, #FF8C00";
+    }
+    if (score <= 6) {
+        return "#800080, #FF0000, #FF8C00, #FFFF00";
+    }
+    if (score <= 8) {
+        return "#800080, #FF0000, #FF8C00, #FFFF00,rgb(174, 212, 3)";
+    }
+    return "#800080, #FF0000, #FF8C00, #FFFF00,rgb(98, 199, 4), rgb(0, 255, 64)";
 };
 
 export default ScoreCircle;

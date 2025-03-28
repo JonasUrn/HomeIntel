@@ -7,15 +7,15 @@
 }
 
 .outline {
-    border: 25px solid;
     width: 100%;
     aspect-ratio: 1 / 1;
-    /* Circular outline */
     border-radius: 50%;
-    /* Make it circular */
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    background: transparent;
+    border: none;
 }
 
 .blackCircle {
@@ -23,14 +23,12 @@
     aspect-ratio: 1 / 1;
     background-color: black;
     border-radius: 50%;
-    /* Make it circular */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: white;
     position: absolute;
-    /* Ensures it's positioned inside the outline circle */
 }
 
 .title {
