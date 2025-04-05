@@ -10,7 +10,7 @@ import java.util.*;
 public class PricePredictor {
 
     private static final String JSON_FILE_PATH = "backend\\src\\main\\java\\com\\Eval\\data.json"; // Path to your input JSON file
-    private static final String API_KEY = "AIzaSyANXyIMHs85zPRiP47KG7pwmMAcjSunuSs"; // API key
+    private static final String API_KEY = "ADD_Yourself"; // API key
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
