@@ -16,7 +16,7 @@ const ScoreCircle = ({ text1, score, outoften, text2 }) => {
             <div className={styles.blackCircle}>
                 <span className={styles.title}>{text1}</span>
                 <span className={styles.score}>
-                    {outoften ? `${score} / 10` : text2}
+                    {outoften ? `${score} / 10` : text2 + "$"}
                 </span>
             </div>
         </div>
