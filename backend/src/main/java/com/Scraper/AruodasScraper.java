@@ -48,6 +48,8 @@ public class AruodasScraper implements ScraperMethods{
             if(price.contains("€")){
                 price = price.split("€")[0].trim().replace(" ", "");
             }
+            //Kovertuoti price eur i usd
+            //Konvertuoti eur_price_per_meter i usd_price_per_sqFeet
             Double usd_price = Double.parseDouble(price) * eur_to_usd;            
             dictionary.put("Price", usd_price.toString());
             if(dictionary.get("Area:") != null){
@@ -93,6 +95,7 @@ public class AruodasScraper implements ScraperMethods{
     public Dictionary<String, String> TryScrapeAgain(int timesToScrape) throws InterruptedException{
         int iterator = 0;
         while(iterator < timesToScrape){
+            Thread.sleep(1000);
             dictionary = getObjDetails();
             if(!dictionary.isEmpty()){break;}
             iterator++;

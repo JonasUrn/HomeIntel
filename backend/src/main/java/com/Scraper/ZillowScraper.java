@@ -81,7 +81,6 @@ public class ZillowScraper implements ScraperMethods{
             if(buildDate_Lotarea.size() >= 3){
                 build_date_lotarea = buildDate_Lotarea.get(3).getAllElements().textNodes();
             }
-            
             for(int i = 0; i < build_date_lotarea.size(); i++){
                 String textValue = build_date_lotarea.get(i).text().toLowerCase();
                 if(i == 1){
