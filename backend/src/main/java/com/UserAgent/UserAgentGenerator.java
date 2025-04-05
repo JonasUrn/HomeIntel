@@ -22,7 +22,8 @@ public class UserAgentGenerator {
         String returnedLine = "";
         try {
             int iterator = 0;
-            File file = new File("backend\\src\\main\\java\\com\\UserAgent\\userAgentData.csv");
+            File file = new File(
+                    "backend\\src\\main\\java\\com\\UserAgent\\userAgentData.csv");
 
             Scanner scanner = new Scanner(file);
             while (iterator < randomNumbers[0]) {

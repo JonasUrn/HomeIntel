@@ -1,5 +1,6 @@
 package com.Scraper;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -16,8 +17,6 @@ public class ZillowScraper implements ScraperMethods{
     private String linkToObject;
     private Document doc;
     private Dictionary<String, String> dictionary;
-    private final double feet_meter_mult_value = 0.092903;
-    private final double usdToEurRate = 0.92;
     private final double acre_to_sqM = 4046.85642;
 
     public ZillowScraper(Dictionary<String, String[]> allowedLinks, String link, Document doc, String linkToObject){
@@ -69,21 +68,20 @@ public class ZillowScraper implements ScraperMethods{
             }
         }
         catch(Exception e){
-            System.out.printf("\nError  of taking data. Target link: %s\n", linkToObject);
+            e.printStackTrace();
             return dictionary;
         }
-        // System.out.println(dictionary);
         return dictionary;
     }
     
     public double BuildDate(){
         try{
-            Elements buildDate_Lotarea = doc.select(allowedLinks.get(link)[0]); //Getting building date and house lotarea
-            List<TextNode> build_date_lotarea = null;
+            Elements buildDate_Lotarea = doc.select(allowedLinks.get(link)[0]);
+            List<TextNode> build_date_lotarea = new ArrayList();
             if(buildDate_Lotarea.size() >= 3){
                 build_date_lotarea = buildDate_Lotarea.get(3).getAllElements().textNodes();
             }
-
+            
             for(int i = 0; i < build_date_lotarea.size(); i++){
                 String textValue = build_date_lotarea.get(i).text().toLowerCase();
                 if(i == 1){
@@ -100,7 +98,7 @@ public class ZillowScraper implements ScraperMethods{
                     dictionary.put("Lotarea", String.format("%,.2f", finalVal).toString());
                 }
             }
-            if(dictionary.size() == 1){
+            if(dictionary.size() == 1 || dictionary.size() == 0){
                 return Double.parseDouble("0");
             }
             return Double.parseDouble(dictionary.get("Lotarea").replace(",", ""));

@@ -36,7 +36,7 @@ public class AruodasScraper implements ScraperMethods{
             int targetColLength = (titlesArr.length > innerDataArr.length && (titlesArr.length != innerDataArr.length)) ? innerDataArr.length : titlesArr.length;
             for(int i = 0; i < targetColLength; i++){
                 String text = titles.get(i).text();
-                if(text.contains("Area:")){ //Nesuveikia
+                if(text.contains("Area:")){
                     Double sqFt_area = Double.parseDouble(innerHTMLData.get(i).text().split(" ")[0].trim().replace(",", ".")) * square_meter_to_square_feet;
                     dictionary.put(text, sqFt_area.toString());
                     continue;
@@ -48,8 +48,6 @@ public class AruodasScraper implements ScraperMethods{
             if(price.contains("€")){
                 price = price.split("€")[0].trim().replace(" ", "");
             }
-            //Kovertuoti price eur i usd
-            //Konvertuoti eur_price_per_meter i usd_price_per_sqFeet
             Double usd_price = Double.parseDouble(price) * eur_to_usd;            
             dictionary.put("Price", usd_price.toString());
             if(dictionary.get("Area:") != null){
@@ -58,7 +56,8 @@ public class AruodasScraper implements ScraperMethods{
             }
         }
         catch(Exception e){
-            System.out.printf("Error  of taking data. Target link: %s\n", link);
+            System.out.printf("Error  of taking data. Target link: %s", link);
+            e.printStackTrace();
             return dictionary;
         }
 
@@ -94,7 +93,6 @@ public class AruodasScraper implements ScraperMethods{
     public Dictionary<String, String> TryScrapeAgain(int timesToScrape) throws InterruptedException{
         int iterator = 0;
         while(iterator < timesToScrape){
-            Thread.sleep(1000);
             dictionary = getObjDetails();
             if(!dictionary.isEmpty()){break;}
             iterator++;
