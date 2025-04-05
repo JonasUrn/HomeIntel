@@ -2,15 +2,18 @@ package com.PromptAPI;
 
 import okhttp3.*;
 import com.google.gson.*;
+
+import io.github.cdimascio.dotenv.Dotenv;
+
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.*;
 
 @Service
 public class PromptService {
-    private static final String API_KEY = "INSERT_API_HERE"; // Replace with your actual API Key
-    private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
-            + API_KEY;
+    Dotenv dotenv = Dotenv.load();
+    private final String API_KEY = dotenv.get("API_KEY"); // API key
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 

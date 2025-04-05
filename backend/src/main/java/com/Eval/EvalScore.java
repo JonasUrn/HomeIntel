@@ -1,6 +1,8 @@
 package com.Eval;
 
 import com.google.gson.*;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.*;
 import java.io.*;
 import java.nio.file.Files;
@@ -8,8 +10,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class EvalScore {
-    private static final String API_KEY = "INSERT_API_HERE"; // API key
-    private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
+    Dotenv dotenv = Dotenv.load();
+    private final String API_KEY = dotenv.get("API_KEY"); // API key
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 
