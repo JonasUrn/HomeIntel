@@ -7,9 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class PricePredictor {
+public class EvalScore {
 
-    private static final String JSON_FILE_PATH = "backend\\src\\main\\java\\com\\Eval\\data.json"; // Path to your input JSON file
+    private static final String JSON_FILE_PATH = "backend\\src\\main\\java\\com\\Eval\\data.json";
     private static final String API_KEY = "AIzaSyANXyIMHs85zPRiP47KG7pwmMAcjSunuSs"; // API key
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
@@ -20,40 +20,39 @@ public class PricePredictor {
             // Read the JSON file
             String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FILE_PATH)));
             JsonObject inputData = JsonParser.parseString(jsonContent).getAsJsonObject();
-            inputData.remove("Price");
 
             // Send request to Gemini API
-            PricePredictor pricePredictor = new PricePredictor();
-            String predictedPriceText = pricePredictor.getPredictedPrice(inputData);
+            EvalScore evalScore = new EvalScore();
+            String scoreText = evalScore.getEvaluationScore(inputData);
+            double score = extractScoreFromText(scoreText);
 
-            // Extract predicted price from the text response
-            double predictedPrice = extractPriceFromText(predictedPriceText);
 
             // Print results
-            System.out.println("Predicted Price: " + (predictedPrice == -1 ? "Unknown" : predictedPrice));
+            System.out.println("Eval score: " + (score == -1 ? "Unknown" : score));
         } catch (IOException e) {
             System.err.println("Error reading JSON file or sending request: " + e.getMessage());
         }
     }
 
     // Method to send the request to the Gemini API and get the response
-    public String getPredictedPrice(JsonObject inputData) throws IOException {
-        String systemInstruction = 
-                            "You are a professional real estate analyst. Your task is to predict the fair market price of a house based solely on the provided JSON input." +
-                            " Do not provide explanations or reasoning—only return a single integer value representing the predicted price in USD." +
-                            " Use your knowledge of real estate pricing trends, ZIP-code-related value patterns, and housing characteristics to make an accurate estimate." +
-                            " Input will be in this format: " +
-                            "{" +
-                            "\"Lotarea\": number, " +
-                            "\"Total area\": number, " +
-                            "\"Baths\": number, " +
-                            "\"Build date\": number, " +
-                            "\"House area\": number, " +
-                            "\"Beds\": integer, " +
-                            "\"Zip\": string" +
-                            "}. " +
-                            "Respond with only the price in integer USD format, no extra characters.";
+    public String getEvaluationScore(JsonObject inputData) throws IOException{
 
+        String systemInstruction = 
+                        "You are a professional real estate analyst. Your task is to evaluate the overall quality and value of a house on a scale from 1 to 10, based solely on the provided JSON input." +
+                        " Do not explain your reasoning—just return a single integer from 1 (very poor) to 10 (excellent)." +
+                        " Use your expert knowledge of property appraisal, considering the price, lot size, total area, number of baths and beds, year built, house area, and ZIP code trends." +
+                        " Input will be in this format: " +
+                        "{" +
+                        "\"Price\": number, " +
+                        "\"Lotarea\": number, " +
+                        "\"Total area\": number, " +
+                        "\"Baths\": number, " +
+                        "\"Build date\": number, " +
+                        "\"House area\": number, " +
+                        "\"Beds\": integer, " +
+                        "\"Zip\": string" +
+                        "}. " +
+                        "Respond with only the evaluation score (an integer from 1 to 10), no extra characters.";
 
         String prompt = systemInstruction + "Details: " + inputData.toString() + "; \n";
 
@@ -121,7 +120,7 @@ public class PricePredictor {
     }
 
     // Helper method to extract the price from the response text
-    private static double extractPriceFromText(String text) {
+    private static double extractScoreFromText(String text) {
         if (text != null && !text.isEmpty()) {
             try {
                 // Attempt to parse the numeric value
