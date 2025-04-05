@@ -5,23 +5,24 @@ import okhttp3.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.InvalidParameterException;
 import java.util.*;
 
 public class PricePredictor {
-
-    private static final String JSON_FILE_PATH = "backend\\src\\main\\java\\com\\Eval\\data.json"; // Path to your input JSON file
-    private static final String API_KEY = "ADD_Yourself"; // API key
+    private static final String API_KEY = "INSERT_API_HERE"; // API key
     private static final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
-
-    public static void main(String[] args) {
+    
+    public static double getPredictPrice(JsonObject inputData) {
         try {
-            // Read the JSON file
-            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FILE_PATH)));
-            JsonObject inputData = JsonParser.parseString(jsonContent).getAsJsonObject();
-            inputData.remove("Price");
-
+            try {
+                inputData.remove("Price");
+            }
+            catch (InvalidParameterException e){
+                System.err.println("No price found: " + e.getMessage());
+            }
+            //System.out.println(inputData.toString());
             // Send request to Gemini API
             PricePredictor pricePredictor = new PricePredictor();
             String predictedPriceText = pricePredictor.getPredictedPrice(inputData);
@@ -31,27 +32,20 @@ public class PricePredictor {
 
             // Print results
             System.out.println("Predicted Price: " + (predictedPrice == -1 ? "Unknown" : predictedPrice));
+            return predictedPrice;
         } catch (IOException e) {
             System.err.println("Error reading JSON file or sending request: " + e.getMessage());
         }
+        return 0;
     }
 
     // Method to send the request to the Gemini API and get the response
-    public String getPredictedPrice(JsonObject inputData) throws IOException {
+    private String getPredictedPrice(JsonObject inputData) throws IOException {
         String systemInstruction = 
                             "You are a professional real estate analyst. Your task is to predict the fair market price of a house based solely on the provided JSON input." +
                             " Do not provide explanations or reasoning—only return a single integer value representing the predicted price in USD." +
                             " Use your knowledge of real estate pricing trends, ZIP-code-related value patterns, and housing characteristics to make an accurate estimate." +
-                            " Input will be in this format: " +
-                            "{" +
-                            "\"Lotarea\": number, " +
-                            "\"Total area\": number, " +
-                            "\"Baths\": number, " +
-                            "\"Build date\": number, " +
-                            "\"House area\": number, " +
-                            "\"Beds\": integer, " +
-                            "\"Zip\": string" +
-                            "}. " +
+                            " " +
                             "Respond with only the price in integer USD format, no extra characters.";
 
 
@@ -74,7 +68,7 @@ public class PricePredictor {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            System.out.println("Response received, HTTP Code: " + response.code());
+            //System.out.println("Response received, HTTP Code: " + response.code());
             if (!response.isSuccessful()) {
                 System.err.println("Error response: " + response.body().string());
                 throw new IOException("Unexpected response " + response);
@@ -82,7 +76,7 @@ public class PricePredictor {
 
             // Log the raw response body for debugging
             String responseBody = response.body().string();
-            System.out.println("API Response Body: " + responseBody);
+            //System.out.println("API Response Body: " + responseBody);
 
             return parseResponse(responseBody);
         }
@@ -92,7 +86,7 @@ public class PricePredictor {
         JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
         JsonArray candidates = jsonObject.getAsJsonArray("candidates");
 
-        System.out.println("Parsing response...");
+        //System.out.println("Parsing response...");
 
         // If candidates array is empty, log and return null
         if (candidates == null || candidates.size() == 0) {

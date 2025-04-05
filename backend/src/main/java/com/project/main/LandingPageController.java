@@ -6,6 +6,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Map;
 
+import com.Eval.EvalScore;
+import com.Eval.PricePredictor;
 import com.PromptAPI.*;
 
 import org.springframework.http.ResponseEntity;
@@ -59,10 +61,17 @@ public class LandingPageController {
             JsonObject answer = promptApi.getStructuredResponse(prompt);
             System.out.println("Gemini API Response: ");
             System.out.println(gson.toJson(answer));
+            
+            // Testing
+            double predPrice = PricePredictor.getPredictPrice(answer);
+            double evalScore = EvalScore.getEvalScor(answer, selectedValues);
+
             return answer;
         } catch (IOException e) {
             return null;
         }
+        
+
     }
 
     // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
