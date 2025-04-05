@@ -22,6 +22,7 @@ const Grid = ({ entries }) => {
                 <div key={index} className={styles.gridItem}>
                     <strong>{key}</strong>:
                     <input
+                        className={styles.gridInput}
                         type="text"
                         value={data[key] !== undefined ? data[key] : value}
                         onChange={(e) => handleChange(key, e.target.value)}

@@ -16,9 +16,9 @@ const InputField = () => {
         <div className={styles.wrapper}>
             <h3 className={styles.reevaluationTitle}>Reevaluate the property</h3>
 
-            <div className={styles.inputFieldContainer}>
+            <div className={styles.inputFieldContainer2}>
                 <textarea
-                    className={styles.input}
+                    className={styles.input2}
                     value={value}
                     placeholder="Enter reevaluation input..."
                     onChange={(e) => setValue(e.target.value)}
