@@ -49,6 +49,7 @@ public class EvalScore {
                 "JSON input: " + inputData.toString() + "; \n" +
                 "Selected values: " + selectedValues + "; \n";
 
+
         Map<String, Object> message = new HashMap<>();
         message.put("role", "user");
         message.put("parts", Collections.singletonList(Collections.singletonMap("text", prompt)));
