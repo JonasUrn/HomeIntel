@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
 import SideNav, { NavItem, NavText } from '@trendmicro/react-sidenav';
+import { logo, logoTransparent } from "../imports/importPictures.js";
 import SearchBar from "../searchBar/searchBar.js";
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
@@ -14,7 +15,9 @@ const Header = () => {
             <div className={styles.headerBar}>
                 <div className={styles.navbar}>
                     <div className={styles.urlDiv}>
-                        <a className={styles.websiteUrl} href="http://localhost:3000/">OurWebsite.com</a>
+                        <a className={styles.websiteUrl} href="http://localhost:3000/">
+                            <img src={logo} className={styles.logoURL}></img>
+                        </a>
                     </div>
                     <div className={styles.otherLinks}>
                         <a className={styles.howItWorks}>Evaluation</a>
