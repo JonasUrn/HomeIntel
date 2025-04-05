@@ -12,7 +12,7 @@ import java.util.*;
 @Service
 public class PromptService {
     Dotenv dotenv = Dotenv.load();
-    private final String API_KEY = dotenv.get("API_KEY"); // API key
+    private final String API_KEY = dotenv.get("API_HOME_INTEL"); // API key
     private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
 
     private final OkHttpClient client = new OkHttpClient();
@@ -49,7 +49,6 @@ public class PromptService {
                 + "\"NearestSchool\": \"string\", "
                 + "\"NearestShop\": \"string\", "
                 + "\"HasBalcony\": \"boolean\", "
-                + "\"Description\": \"string\""
                 + "}";
 
         Map<String, Object> message = new HashMap<>();

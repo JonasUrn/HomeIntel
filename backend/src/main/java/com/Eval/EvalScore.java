@@ -11,7 +11,7 @@ import java.util.*;
 
 public class EvalScore {
     Dotenv dotenv = Dotenv.load();
-    private final String API_KEY = dotenv.get("API_KEY"); // API key
+    private final String API_KEY = dotenv.get("API_HOME_INTEL"); // API key
     private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
@@ -39,7 +39,7 @@ public class EvalScore {
         String systemInstruction =
                 "You are a professional real estate analyst. Your task is to evaluate the overall quality and value of a house on a scale from 1 to 10, based solely on the provided input." +
                 " Do not explain your reasoning—just return a single integer from 1 (very poor) to 10 (excellent)." +
-                " Use your expert knowledge of property appraisal, considering the price, lot size, total area, number of baths and beds, year built, house area, and ZIP code trends." +
+                " Use your expert knowledge of property appraisal." +
                 " In addition to the basic property data (JSON input), a set of selected values is provided that indicates the importance of additional property features." +
                 " Each selected value is marked as 'r' (not important), 'y' (somewhat important), or 'g' (important), and should influence your scoring accordingly." +
                 " Give more weight to features marked 'g', less to 'y', and ignore those marked 'r'." +
@@ -57,7 +57,7 @@ public class EvalScore {
         requestBody.put("contents", Collections.singletonList(message));
         
         Map<String, Object> generationConfig = new HashMap<>();
-        generationConfig.put("temperature", 0);
+        generationConfig.put("temperature", 1);
         requestBody.put("generationConfig", generationConfig);
 
         Request request = new Request.Builder()
