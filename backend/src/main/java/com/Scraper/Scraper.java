@@ -3,6 +3,7 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import org.apache.commons.lang3.time.StopWatch;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
@@ -22,6 +23,7 @@ public class Scraper{
     private boolean isCorrectData = true;
     
     public Scraper(String linkToRealEstate){
+
         AddInformation();
         this.linkToObject = linkToRealEstate;
         for(int i = 0; i < links.length; i++){
@@ -41,20 +43,17 @@ public class Scraper{
                     String[] urlParts = linkToRealEstate.toString().split("\\.");
                     String mainUrl = urlParts[0] + "." + urlParts[1] + "." + urlParts[2].split("/")[0];
                     this.linkDomain = mainUrl;
-                    this.doc = Jsoup.connect(linkToRealEstate)
-                                    .userAgent(agent)
-                                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8")
-                                    .header("Accept-Language", "en-US,en;q=0.5")
-                                    .header("Connection", "keep-alive")
-                                    .timeout(timeoutSeconds * 1000)
-                                    .get();
-                                    
+                    
+                    BypassCloudflare avoidCloudflare = new BypassCloudflare(linkToRealEstate, this.agentData);
+                    this.doc = avoidCloudflare.getHTML();
+                    
                     if(this.doc == null){
                         System.out.println("Error during scraping data");
                         return;
                     }
                     this.dictionary = new Hashtable<>();
                 } catch (Exception e) {
+                    isCorrectData = false;
                     e.printStackTrace();
                 }
             }
@@ -95,6 +94,7 @@ public class Scraper{
             }
             catch (Exception e){
                 e.printStackTrace();
+                isCorrectData = false;
                 System.out.println("Error in GetResults() method Scraper klases");
             }
         }

@@ -36,7 +36,7 @@ public class AruodasScraper implements ScraperMethods{
             int targetColLength = (titlesArr.length > innerDataArr.length && (titlesArr.length != innerDataArr.length)) ? innerDataArr.length : titlesArr.length;
             for(int i = 0; i < targetColLength; i++){
                 String text = titles.get(i).text();
-                if(text.contains("Area:")){ //Nesuveikia
+                if(text.contains("Area:")){
                     Double sqFt_area = Double.parseDouble(innerHTMLData.get(i).text().split(" ")[0].trim().replace(",", ".")) * square_meter_to_square_feet;
                     dictionary.put(text, sqFt_area.toString());
                     continue;
@@ -58,7 +58,8 @@ public class AruodasScraper implements ScraperMethods{
             }
         }
         catch(Exception e){
-            System.out.printf("Error  of taking data. Target link: %s\n", link);
+            System.out.printf("Error  of taking data. Target link: %s", link);
+            e.printStackTrace();
             return dictionary;
         }
 
