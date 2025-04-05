@@ -1,24 +1,47 @@
 import React, { useState } from "react";
 import styles from "./Grid.module.css";
 
-const Grid = ({ entries }) => {
-    const items = [...entries.entries()];
-    const totalItems = items.length < 10
-        ? [...items, ...Array(10 - items.length).fill(["No Data", ""])]
-        : items;
+const Grid = ({ entries, onDataChange }) => {
+    const importanceOrder = [
+        "Address",
+        "City",
+        "Country",
+        "Longitude",
+        "Latitude",
+        "YearBuilt",
+        "FloorNr",
+        "NumOfFloors",
+        "RoomCount",
+        "BedroomCount",
+        "BathroomCount",
+        "Heating",
+        "EnergyClass",
+        "State",
+        "ParkingSpotAvailable",
+        "HasBalcony"
+    ];
 
-    const [data, setData] = useState(Object.fromEntries(items));
+    const items = entries instanceof Map ? [...entries.entries()] : Object.entries(entries);
+
+    const filteredItems = importanceOrder
+        .map((key) => {
+            const entry = items.find(([field]) => field === key);
+            return entry ? entry : null;
+        })
+        .filter((item) => item !== null)
+        .slice(0, 10);
+
+    const [data, setData] = useState(Object.fromEntries(filteredItems));
 
     const handleChange = (key, newValue) => {
-        setData(prevData => ({
-            ...prevData,
-            [key]: newValue
-        }));
+        const newData = { ...data, [key]: newValue };
+        setData(newData);
+        onDataChange(newData);
     };
 
     return (
         <div className={styles.grid}>
-            {totalItems.map(([key, value], index) => (
+            {filteredItems.map(([key, value], index) => (
                 <div key={index} className={styles.gridItem}>
                     <strong>{key}</strong>:
                     <input

@@ -3,6 +3,7 @@ package com.project.main;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -19,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.*;
-
+import com.google.gson.reflect.TypeToken;
 import com.Scraper.Scraper;
+import java.io.IOException;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -49,7 +51,7 @@ public class LandingPageController {
     }
 
     @PostMapping("/evaluate/prompt")
-    public JsonObject evaluatePrompt(@RequestBody Map<String, Object> data) {
+    public Map<String, Object> evaluatePrompt(@RequestBody Map<String, Object> data) {
         String prompt = (String) data.get("prompt");
         Map<String, String> selectedValues = (Map<String, String>) data.get("selectedValues");
 
@@ -57,21 +59,46 @@ public class LandingPageController {
         System.out.println("Selected values: " + selectedValues);
 
         try {
-            // Call the Gemini API using PromptService
             JsonObject answer = promptApi.getStructuredResponse(prompt);
             System.out.println("Gemini API Response: ");
             System.out.println(gson.toJson(answer));
-            
-            // Testing
+
             double predPrice = PricePredictor.getPredictPrice(answer);
             double evalScore = EvalScore.getEvalScor(answer, selectedValues);
 
-            return answer;
+            Map<String, Object> responseMap = new HashMap<>();
+            responseMap.put("PredictedPrice", predPrice);
+            responseMap.put("PredictedScore", evalScore);
+
+            Gson gson = new Gson();
+            Map<String, Object> geminiResponseMap = gson.fromJson(answer, new TypeToken<Map<String, Object>>() {
+            }.getType());
+            responseMap.put("geminiResponse", geminiResponseMap);
+
+            return responseMap;
         } catch (IOException e) {
             return null;
         }
-        
+    }
 
+    @RestController
+    public class EvaluationController {
+
+        @PostMapping("/evaluate/reevaluate")
+        public Map<String, Object> reevaluate(@RequestBody Map<String, Object> data) {
+            // Retrieve the prompt and selected values from the request body
+            String prompt = (String) data.get("prompt");
+            Map<String, String> newValues = (Map<String, String>) data.get("gridData");
+
+            // Print the prompt and selected values
+            System.out.println("Prompt entered: " + prompt);
+            System.out.println("Grid values: " + newValues);
+
+            // Process the data as needed (e.g., perform calculations, evaluate, etc.)
+
+            // Return a response indicating success
+            return Map.of("message", "Evaluation successful", "status", "OK");
+        }
     }
 
     // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine

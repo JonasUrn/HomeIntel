@@ -12,9 +12,9 @@ import java.util.*;
 @Service
 public class PromptService {
     Dotenv dotenv = Dotenv.load();
-    private final String API_KEY = dotenv.get("API_KEY"); // API key
-    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
-
+    private final String API_KEY = dotenv.get("API_HOME_INTEL"); // API key
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
+            + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
 
@@ -27,7 +27,7 @@ public class PromptService {
                 + "Make sure to always use the exact field names and provide the values in the appropriate types. If city is present - infer the country. If possible, infer latitude and"
                 + "longitude from address and vice verse - it may be approxiamte. If area and price are present - infer price per square meter. If price per square meter is present and are ais present - infer total price."
                 + "If total price and price per is present - infer total area. If not possible to do so, use null. If a value is not present or cannot be inferred, use `null` or an empty string."
-                + "If a field is optional, omit it if unknown. Please respond in the following JSON format:";
+                + "If a field is optional, omit it if unknown. Do not inlcude price in description of the object. Please respond in the following JSON format:";
 
         String prompt = systemInstruction + "Details:" + user_prompt + "; \n" + " The fields to extract are: "
                 + "{"
@@ -49,7 +49,6 @@ public class PromptService {
                 + "\"NearestSchool\": \"string\", "
                 + "\"NearestShop\": \"string\", "
                 + "\"HasBalcony\": \"boolean\", "
-                + "\"Description\": \"string\""
                 + "}";
 
         Map<String, Object> message = new HashMap<>();

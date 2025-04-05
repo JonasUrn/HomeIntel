@@ -8,6 +8,7 @@ import { RadioGroup } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./modal.module.css";
 import ax from "axios";
+import { useNavigate } from "react-router-dom";
 
 const questions = {
     1: "Distance from city center",
@@ -16,7 +17,6 @@ const questions = {
     4: "Parking space"
 };
 
-// Color mapping for each radio button
 const colorMap = {
     r: "red",
     y: "orange",
@@ -26,6 +26,7 @@ const colorMap = {
 const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
     const [selectedValues, setSelectedValues] = useState({});
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const [color, key] = event.target.value.split("_");
@@ -42,23 +43,26 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
 
     const submitHandler = async () => {
         try {
-            var response = null;
-            var newParams = modifySelection();
-            console.log(newParams);
+            let response = null;
+            let newParams = modifySelection();
+
             if (isLink) {
-                var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
+                response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
                     data: data,
                     selectedValues: newParams,
                 });
-                console.log(`Response: ${Object.keys(response)}`);
             } else {
                 response = await ax.post("http://localhost:8080/api/evaluate/prompt", {
                     prompt: data,
-                    selectedValues: newParams
+                    selectedValues: newParams,
                 });
             }
 
-            console.log("Response Data:", response.data);
+            let parsedResponse = response.data;
+            navigate("/results", {
+                state: { geminiResponse: parsedResponse.geminiResponse, PredictedPrice: parsedResponse.PredictedPrice, PredictedScore: parsedResponse.PredictedScore }
+            });
+
         } catch (err) {
             setError("Error: " + (err.response?.status || err.message));
         }

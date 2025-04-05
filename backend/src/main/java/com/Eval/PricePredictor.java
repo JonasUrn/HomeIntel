@@ -12,20 +12,21 @@ import java.util.*;
 
 public class PricePredictor {
     Dotenv dotenv = Dotenv.load();
-    private final String API_KEY = dotenv.get("API_KEY"); // API key
-    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + API_KEY;
+    private final String API_KEY = dotenv.get("API_HOME_INTEL"); // API key
+    private final String GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
+            + API_KEY;
     private final OkHttpClient client = new OkHttpClient();
     private final Gson gson = new Gson();
-    
-    public static double getPredictPrice(JsonObject inputData) {
+
+    public static double getPredictPrice(JsonObject answer) {
+        JsonObject inputData = answer.deepCopy();
         try {
             try {
                 inputData.remove("Price");
-            }
-            catch (InvalidParameterException e){
+            } catch (InvalidParameterException e) {
                 System.err.println("No price found: " + e.getMessage());
             }
-            //System.out.println(inputData.toString());
+            // System.out.println(inputData.toString());
             // Send request to Gemini API
             PricePredictor pricePredictor = new PricePredictor();
             String predictedPriceText = pricePredictor.getPredictedPrice(inputData);
@@ -44,13 +45,14 @@ public class PricePredictor {
 
     // Method to send the request to the Gemini API and get the response
     private String getPredictedPrice(JsonObject inputData) throws IOException {
-        String systemInstruction = 
-                            "You are a professional real estate analyst. Your task is to predict the fair market price of a house based solely on the provided JSON input." +
-                            " Do not provide explanations or reasoning—only return a single integer value representing the predicted price in USD." +
-                            " Use your knowledge of real estate pricing trends, ZIP-code-related value patterns, and housing characteristics to make an accurate estimate." +
-                            " " +
-                            "Respond with only the price in integer USD format, no extra characters.";
-
+        String systemInstruction = "You are a professional real estate analyst. Your task is to predict the fair market price of a house based solely on the provided JSON input."
+                +
+                " Do not provide explanations or reasoning—only return a single integer value representing the predicted price in USD."
+                +
+                " Use your knowledge of real estate pricing trends, ZIP-code-related value patterns, and housing characteristics to make an accurate estimate."
+                +
+                " " +
+                "Respond with only the price in integer USD format, no extra characters.";
 
         String prompt = systemInstruction + "Details: " + inputData.toString() + "; \n";
 
@@ -60,7 +62,7 @@ public class PricePredictor {
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("contents", Collections.singletonList(message));
-        
+
         Map<String, Object> generationConfig = new HashMap<>();
         generationConfig.put("temperature", 0);
         requestBody.put("generationConfig", generationConfig);
@@ -71,7 +73,7 @@ public class PricePredictor {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            //System.out.println("Response received, HTTP Code: " + response.code());
+            // System.out.println("Response received, HTTP Code: " + response.code());
             if (!response.isSuccessful()) {
                 System.err.println("Error response: " + response.body().string());
                 throw new IOException("Unexpected response " + response);
@@ -79,7 +81,7 @@ public class PricePredictor {
 
             // Log the raw response body for debugging
             String responseBody = response.body().string();
-            //System.out.println("API Response Body: " + responseBody);
+            // System.out.println("API Response Body: " + responseBody);
 
             return parseResponse(responseBody);
         }
@@ -89,7 +91,7 @@ public class PricePredictor {
         JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
         JsonArray candidates = jsonObject.getAsJsonArray("candidates");
 
-        //System.out.println("Parsing response...");
+        // System.out.println("Parsing response...");
 
         // If candidates array is empty, log and return null
         if (candidates == null || candidates.size() == 0) {
