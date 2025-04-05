@@ -48,6 +48,7 @@ const ResultsPage = () => {
         const requestData = {
             prompt: prompt,
             gridData: Object.fromEntries(gridData),
+            price: price,
         };
 
         try {

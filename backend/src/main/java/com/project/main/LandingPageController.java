@@ -86,19 +86,35 @@ public class LandingPageController {
 
         @PostMapping("/evaluate/reevaluate")
         public Map<String, Object> reevaluate(@RequestBody Map<String, Object> data) {
-            // Retrieve the prompt and selected values from the request body
             String prompt = (String) data.get("prompt");
-            Map<String, String> newValues = (Map<String, String>) data.get("gridData");
 
-            // Print the prompt and selected values
-            System.out.println("Prompt entered: " + prompt);
+            Map<String, Object> newValues = (Map<String, Object>) data.get("gridData");
+
+            Object priceObject = data.get("price");
+            String price = priceObject != null ? String.valueOf(priceObject) : "";
+
+            System.out.println("Price: " + price);
+
+            JsonObject reevalObject = new JsonObject();
+
+            for (Map.Entry<String, Object> entry : newValues.entrySet()) {
+                String value = String.valueOf(entry.getValue());
+                reevalObject.addProperty(entry.getKey(), value);
+            }
+
+            reevalObject.addProperty("Price", price);
+            reevalObject.addProperty("Extra information", prompt);
+
+            System.out.println("Reeval Object: " + reevalObject);
+            
+            Map<String, String> none = new HashMap<>();
+            double evalScore = EvalScore.getEvalScor(reevalObject, none);
+
             System.out.println("Grid values: " + newValues);
 
-            // Process the data as needed (e.g., perform calculations, evaluate, etc.)
-
-            // Return a response indicating success
             return Map.of("message", "Evaluation successful", "status", "OK");
         }
+
     }
 
     // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
