@@ -4,12 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const InputField = () => {
+const InputField = ({ onSubmit }) => {
     const [value, setValue] = useState("");
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        console.log("Submitted:", value);
+    const handleSubmit = async () => {
+        onSubmit(value);
     };
 
     return (

@@ -23,7 +23,7 @@ public class EvalScore {
             String scoreText = evalScore.getEvaluationScore(inputData, selectedValues);
             double score = extractScoreFromText(scoreText);
 
-            //System.out.println(inputData.toString());
+            // System.out.println(inputData.toString());
             // Print results
             System.out.println("Eval score: " + (score == -1 ? "Unknown" : score));
             return score;
@@ -34,10 +34,10 @@ public class EvalScore {
     }
 
     // Method to send the request to the Gemini API and get the response
-    private String getEvaluationScore(JsonObject inputData, Map<String, String> selectedValues) throws IOException{
+    private String getEvaluationScore(JsonObject inputData, Map<String, String> selectedValues) throws IOException {
 
-        String systemInstruction =
-                "You are a professional real estate analyst. Your task is to evaluate the overall quality and value of a house on a scale from 1 to 10, based solely on the provided input." +
+        String systemInstruction = "You are a professional real estate analyst. Your task is to evaluate the overall quality and value of a house on a scale from 1 to 10, based solely on the provided input."
+                +
                 " Do not explain your reasoning—just return a single integer from 1 (very poor) to 10 (excellent)." +
                 " Use your expert knowledge of property appraisal." +
                 " In addition to the basic property data (JSON input), a set of selected values is provided that indicates the importance of additional property features." +
@@ -46,8 +46,8 @@ public class EvalScore {
                 " Respond with only the evaluation score (an integer from 1 to 10), no extra characters.";
 
         String prompt = systemInstruction +
-                    "JSON input: " + inputData.toString() + "; \n" +
-                    "Selected values: " + selectedValues + "; \n";
+                "JSON input: " + inputData.toString() + "; \n" +
+                "Selected values: " + selectedValues + "; \n";
 
         Map<String, Object> message = new HashMap<>();
         message.put("role", "user");
@@ -55,7 +55,7 @@ public class EvalScore {
 
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("contents", Collections.singletonList(message));
-        
+
         Map<String, Object> generationConfig = new HashMap<>();
         generationConfig.put("temperature", 1);
         requestBody.put("generationConfig", generationConfig);
@@ -66,7 +66,7 @@ public class EvalScore {
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
-            //System.out.println("Response received, HTTP Code: " + response.code());
+            // System.out.println("Response received, HTTP Code: " + response.code());
             if (!response.isSuccessful()) {
                 System.err.println("Error response: " + response.body().string());
                 throw new IOException("Unexpected response " + response);
@@ -74,7 +74,7 @@ public class EvalScore {
 
             // Log the raw response body for debugging
             String responseBody = response.body().string();
-            //System.out.println("API Response Body: " + responseBody);
+            // System.out.println("API Response Body: " + responseBody);
 
             return parseResponse(responseBody);
         }
@@ -84,7 +84,7 @@ public class EvalScore {
         JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
         JsonArray candidates = jsonObject.getAsJsonArray("candidates");
 
-        //System.out.println("Parsing response...");
+        // System.out.println("Parsing response...");
 
         // If candidates array is empty, log and return null
         if (candidates == null || candidates.size() == 0) {
