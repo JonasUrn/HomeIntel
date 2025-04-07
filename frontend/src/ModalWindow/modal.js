@@ -47,7 +47,7 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
             let newParams = modifySelection();
 
             if (isLink) {
-                response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
+                response = await ax.post("http://localhost:8080/api/evaluate/link", {
                     data: data,
                     selectedValues: newParams,
                 });

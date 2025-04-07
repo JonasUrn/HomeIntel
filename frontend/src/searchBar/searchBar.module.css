@@ -95,6 +95,7 @@
     margin: auto;
     flex: 1;
     padding-right: 7%;
+    color: rgb(53, 109, 90, 0.9);
 }
 
 .inputField::placeholder,
