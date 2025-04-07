@@ -41,13 +41,36 @@ public class LandingPageController {
     }
 
     @PostMapping("/evaluate/link")
-    public String evaluateLink(@RequestBody Map<String, Object> data) {
-        String link = (String) data.get("link");
+    public Map<String, Object> evaluateLink(@RequestBody Map<String, Object> data) {
+        String link = (String) data.get("data");
         Map<String, String> selectedValues = (Map<String, String>) data.get("selectedValues");
+        Scraper scraper = new Scraper(link);
+        Dictionary<String, String> rez = scraper.GetResults();
+        Gson gson_ = new Gson();
+        JsonObject answer = gson_.toJsonTree(rez).getAsJsonObject();
 
-        System.out.println("Link entered: " + link);
-        System.out.println(selectedValues);
-        return link;
+
+        System.out.println("Scraoer results: ");
+        System.out.println(gson.toJson(answer));
+
+        double predPrice = PricePredictor.getPredictPrice(answer);
+        double evalScore = EvalScore.getEvalScor(answer, selectedValues);
+
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("PredictedPrice", predPrice);
+        responseMap.put("PredictedScore", evalScore);
+
+        Gson gson = new Gson();
+        Map<String, Object> geminiResponseMap_ = gson.fromJson(answer, new TypeToken<Map<String, Object>>() {
+        }.getType());
+        responseMap.put("geminiResponse", geminiResponseMap_);
+        
+        System.out.printf("Response map: %s\t\nGemini answer: %s\n", responseMap, geminiResponseMap_);
+        return responseMap;
+        
+        // System.out.println("Link entered: " + link);
+        // System.out.println(selectedValues);
+        // return null;
     }
 
     @PostMapping("/evaluate/prompt")
