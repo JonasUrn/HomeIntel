@@ -7,6 +7,7 @@ import BottomSection from "./BottomSection";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import Header from "../Header/header";
 
 const ResultsPage = () => {
     const location = useLocation();
@@ -20,6 +21,7 @@ const ResultsPage = () => {
 
     const realEstateDetails = {
         Address: realEstateInfo?.Addres || "Address not available",
+        Address: realEstateInfo?.Area || "Area not available",
         City: realEstateInfo?.City || "City not available",
         Country: realEstateInfo?.Country || "Country not available",
         Description: realEstateInfo?.Description || "Description not available",

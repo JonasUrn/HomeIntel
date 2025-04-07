@@ -4,6 +4,7 @@ import styles from "./Grid.module.css";
 const Grid = ({ entries, onDataChange }) => {
     const importanceOrder = [
         "Address",
+        "Area",
         "City",
         "Country",
         "Longitude",
