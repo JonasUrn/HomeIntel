@@ -12,4 +12,4 @@ import logoTransparent from "../images/logoTransparent.png";
 
 import { faKeyboard, faSlidersH, faRobot, faDollarSign, faStar, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
-export { bg_first, bg_second, faKeyboard, faSlidersH, faRobot, faDollarSign, faStar, faLightbulb, info1, info2, info3, how1, how2, how3, resultsBg, logo, logoTransparent}
+export { bg_first, bg_second, faKeyboard, faSlidersH, faRobot, faDollarSign, faStar, faLightbulb, info1, info2, info3, how1, how2, how3, resultsBg, logo, logoTransparent }

@@ -1,41 +1,58 @@
-.navbar {
-    z-index: 100;
+.header {
     width: 100vw;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoURL {
+    margin-top: -25px;
+    width: 100px;
+    height: 100px;
+}
+
+.navbar {
+    margin: 15px auto 0px auto;
+    z-index: 100;
+    height: 40px;
+    width: 80%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: rgba(53, 109, 90, 0.9);
-    padding: 1% 200px;
-    border-radius: 10px;
 }
 
-.text {
-    margin-left: 2%;
-    font-size: 26px;
-    font-weight: 600;
-    color: white;
+.headerBar {
+    height: 75px;
+    background-color: rgb(53, 109, 90, 0.9);
 }
 
-.links {
-    margin-right: 2%;
-    display: flex;
-    gap: 20px;
+.button,
+.mainSideBar {
+    display: none;
 }
 
-.links a {
+/* Fix for the navbar text color and hover effects */
+.navbar a {
     text-decoration: none;
     color: white;
-    font-size: 18px;
-    font-weight: 350;
-    margin: auto 20px;
-    transition: transform 0.3s ease-out;
+    cursor: pointer;
 }
 
-.links a:hover {
+.otherLinks a {
+    font-size: 20px;
+    position: relative;
+    font-weight: 350;
+    transition: all 0.3s ease-out;
+    transform: scale(1);
+}
+
+.otherLinks a:hover {
     transform: scale(1.05);
 }
 
-.links a:hover::after {
+.otherLinks a:hover::after {
     background-color: white;
     width: 100%;
     height: 2px;
@@ -47,16 +64,115 @@
     animation: grow 0.3s ease-out;
 }
 
-@media screen and (max-width: 768px) {
+.otherLinks {
+    width: 70%;
+    display: flex;
+    justify-content: space-evenly;
+    margin: auto 0;
+}
+
+.websiteUrl {
+    font-size: 26px;
+    margin: auto;
+    font-weight: 600;
+}
+
+.urlDiv {
+    width: 30%;
+    display: flex;
+}
+
+.bars {
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    height: 60%;
+}
+
+/* Style for the navLink class used for dynamic links */
+.navLink {
+    color: white !important;
+    font-size: 20px;
+    position: relative;
+    font-weight: 350;
+    transition: all 0.3s ease-out;
+    transform: scale(1);
+}
+
+.navLink:hover {
+    transform: scale(1.05);
+}
+
+.navLink:hover::after {
+    background-color: white;
+    width: 100%;
+    height: 2px;
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    animation: grow 0.3s ease-out;
+}
+
+@media screen and (max-width: 1150px) {
     .navbar {
-        flex-direction: column;
-        height: auto;
-        padding: 10px;
-        align-items: center;
+        margin-top: 15px;
     }
 
-    .links {
-        flex-direction: column;
-        gap: 10px;
+    .urlDiv {
+        width: 100%;
+        text-align: center;
+    }
+
+    .otherLinks {
+        display: none;
+    }
+
+    .navbar {
+        gap: 2rem;
+    }
+
+    .button {
+        width: 40px;
+        height: 40px;
+        background-color: rgb(53, 109, 90);
+        border-radius: 25%;
+        top: 15px;
+        right: 20px;
+        border: none;
+        position: absolute;
+        display: block;
+        z-index: 1000;
+        cursor: pointer !important;
+    }
+
+    .button:active .websiteUrl {
+        margin-left: 20px !important;
+    }
+
+    .mainSideBar {
+        margin-top: 55px;
+        height: 250px;
+        width: 100%;
+        padding: 20px;
+        top: 55px;
+        position: absolute;
+        display: block;
+        background-color: rgba(53, 109, 90, 0.2) !important;
+    }
+
+    .otherLinks a:hover::after {
+        content: none;
+    }
+}
+
+@keyframes grow {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
     }
 }

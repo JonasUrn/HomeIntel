@@ -7,7 +7,7 @@ import { faFacebookF, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
     return (
-        <footer className={styles.footer}>
+        <footer className={styles.footer} id="footer" >
             <div className={styles.socialMedia}>
                 <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faTwitter} />

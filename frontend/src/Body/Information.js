@@ -4,9 +4,9 @@ import Card from "./Card.js";
 
 import SectionTitle from "./SectionTitle.js";
 
-const Information = ({ cardsData, title, subtitle }) => {
+const Information = ({ id, cardsData, title, subtitle }) => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id={id}>
             <SectionTitle title={title} subtitle={subtitle} />
 
             <div className={styles.row}>
