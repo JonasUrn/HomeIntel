@@ -9,11 +9,12 @@ const InputField = ({ onSubmit }) => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
+        setValue("");
         onSubmit(value);
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} id="reevaluate">
             <h3 className={styles.reevaluationTitle}>Reevaluate the property</h3>
 
             <div className={styles.inputFieldContainer2}>

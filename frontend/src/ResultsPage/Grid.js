@@ -7,8 +7,6 @@ const Grid = ({ entries, onDataChange }) => {
         "Area",
         "City",
         "Country",
-        "Longitude",
-        "Latitude",
         "YearBuilt",
         "FloorNr",
         "NumOfFloors",
@@ -19,7 +17,9 @@ const Grid = ({ entries, onDataChange }) => {
         "EnergyClass",
         "State",
         "ParkingSpotAvailable",
-        "HasBalcony"
+        "HasBalcony",
+        "Longitude",
+        "Latitude",
     ];
 
     const items = entries instanceof Map ? [...entries.entries()] : Object.entries(entries);

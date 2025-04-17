@@ -9,6 +9,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import styles from "./modal.module.css";
 import ax from "axios";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "./LoadingSpinner";
 
 const questions = {
     1: "Distance from city center",
@@ -26,6 +27,7 @@ const colorMap = {
 const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
     const [selectedValues, setSelectedValues] = useState({});
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (event) => {
@@ -43,6 +45,7 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
 
     const submitHandler = async () => {
         try {
+            setIsLoading(true);
             let response = null;
             let newParams = modifySelection();
 
@@ -59,11 +62,13 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
             }
 
             let parsedResponse = response.data;
+            setIsLoading(false);
             navigate("/results", {
                 state: { geminiResponse: parsedResponse.geminiResponse, PredictedPrice: parsedResponse.PredictedPrice, PredictedScore: parsedResponse.PredictedScore }
             });
 
         } catch (err) {
+            setIsLoading(false);
             setError("Error: " + (err.response?.status || err.message));
         }
     };
@@ -91,58 +96,64 @@ const ModalWindow = ({ isOpen, onClose, data, isLink }) => {
                 }}
             >
                 <div className={styles.modalBoxDiv}>
-                    <Typography id="modal-modal-title" variant="h6">
-                        Let us know your preferences
-                    </Typography>
+                    {isLoading ? (
+                        <LoadingSpinner size="medium" color="rgb(53,109,90)" />
+                    ) : (
+                        <>
+                            <Typography id="modal-modal-title" variant="h6">
+                                Let us know your preferences
+                            </Typography>
 
-                    <table style={{ width: "100%", tableLayout: "fixed", marginTop: "10px" }}>
-                        <thead>
-                            <tr>
-                                <th>Questions</th>
-                                <th>Importance</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Object.keys(questions).map((key) => (
-                                <tr key={key}>
-                                    <td>{questions[key]}</td>
-                                    <td>
-                                        <RadioGroup
-                                            value={selectedValues[key] || ""}
-                                            onChange={handleChange}
-                                            row
-                                            style={{ display: "flex", justifyContent: "center" }}
-                                        >
-                                            {["r", "y", "g"].map((color) => (
-                                                <FormControlLabel
-                                                    key={color}
-                                                    value={`${color}_${key}`}
-                                                    control={
-                                                        <Radio
-                                                            sx={{
-                                                                color: colorMap[color],
-                                                                "&.Mui-checked": { color: colorMap[color] }
-                                                            }}
+                            <table style={{ width: "100%", tableLayout: "fixed", marginTop: "10px" }}>
+                                <thead>
+                                    <tr>
+                                        <th>Questions</th>
+                                        <th>Importance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {Object.keys(questions).map((key) => (
+                                        <tr key={key}>
+                                            <td>{questions[key]}</td>
+                                            <td>
+                                                <RadioGroup
+                                                    value={selectedValues[key] || ""}
+                                                    onChange={handleChange}
+                                                    row
+                                                    style={{ display: "flex", justifyContent: "center" }}
+                                                >
+                                                    {["r", "y", "g"].map((color) => (
+                                                        <FormControlLabel
+                                                            key={color}
+                                                            value={`${color}_${key}`}
+                                                            control={
+                                                                <Radio
+                                                                    sx={{
+                                                                        color: colorMap[color],
+                                                                        "&.Mui-checked": { color: colorMap[color] }
+                                                                    }}
+                                                                />
+                                                            }
+                                                            label=""
                                                         />
-                                                    }
-                                                    label=""
-                                                />
-                                            ))}
-                                        </RadioGroup>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                                    ))}
+                                                </RadioGroup>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
 
-                    {error && <Typography color="error">{error}</Typography>}
+                            {error && <Typography color="error">{error}</Typography>}
 
-                    <Button onClick={submitHandler} sx={{ mt: 2 }} variant="contained" className={styles.btn}>
-                        Submit
-                    </Button>
-                    <Button onClick={onClose} sx={{ mt: 2 }} variant="contained" className={styles.btn}>
-                        Close
-                    </Button>
+                            <Button onClick={submitHandler} sx={{ mt: 2 }} variant="contained" className={styles.btn}>
+                                Submit
+                            </Button>
+                            <Button onClick={onClose} sx={{ mt: 2 }} variant="contained" className={styles.btn}>
+                                Close
+                            </Button>
+                        </>
+                    )}
                 </div>
             </Box>
         </Modal>
