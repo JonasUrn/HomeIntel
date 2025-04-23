@@ -3,12 +3,12 @@ import styles from "./ResultsPage.module.css";
 import Navbar from "./NavBar";
 import ImageSection from "./ImageSection";
 import Grid from "./Grid";
-import BottomSection from "./BottomSection";
 import InputField from "./InputField";
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import LoadingSpinner from "../ModalWindow/LoadingSpinner";
 import Footer from "../Footer/Footer";
+import HousingMarketOverview from "./HousingMarketOverview";
 
 var headerLinks = [
     { title: "Reevalaute", id: "reevalaute" },
@@ -125,7 +125,7 @@ const ResultsPage = () => {
                     onDataChange={handleGridDataChange}
                 />
                 <InputField onSubmit={reevaluationSubmitHandler} />
-                <BottomSection />
+                <HousingMarketOverview />
                 <Footer />
             </div>
         </>

@@ -1,0 +1,328 @@
+/* HousingMarketOverview.module.css */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title {
+    color: #356D5A;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 25px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #356D5A;
+    border-radius: 3px;
+}
+
+.statsContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.statsCard {
+    flex: 1;
+    min-width: 220px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: all 0.3s ease;
+    border-top: 4px solid transparent;
+}
+
+.statsCard:nth-child(1) {
+    border-top-color: #356D5A;
+    /* Primary color */
+}
+
+.statsCard:nth-child(2) {
+    border-top-color: #ffa726;
+    /* Orange */
+}
+
+.statsCard:nth-child(3) {
+    border-top-color: #42a5f5;
+    /* Blue */
+}
+
+.statsCard:nth-child(4) {
+    border-top-color: #7e57c2;
+    /* Purple */
+}
+
+.statsCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.statsCard h3 {
+    color: #4a5568;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat {
+    color: #2d3748;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.stat::before {
+    content: attr(data-prefix);
+}
+
+.listingInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 15px 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.newListings {
+    background-color: #e6f7f2;
+    color: #356D5A;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.newListings::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #356D5A;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.totalListings {
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.lastUpdated {
+    color: #718096;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.trendsContainer {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.trendsContainer h3 {
+    color: #4a5568;
+    font-size: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.trendBox {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.trendValue {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.trendPercent {
+    font-size: 36px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.trendUp {
+    color: #38a169;
+}
+
+.trendDown {
+    color: #e53e3e;
+}
+
+.trendPeriod {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.priceHistory {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 240px;
+    padding-top: 30px;
+}
+
+.pricePoint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+.priceBar {
+    width: 60px;
+    background: linear-gradient(to top, #356D5A, #4fd1c5);
+    border-radius: 6px 6px 0 0;
+    position: absolute;
+    bottom: 40px;
+    transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 6px rgba(53, 109, 90, 0.1);
+}
+
+.priceMonth {
+    position: absolute;
+    bottom: 20px;
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+.priceValue {
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    color: #718096;
+}
+
+.loading,
+.error {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #4a5568;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.loading {
+    position: relative;
+    padding-left: 30px;
+}
+
+.loading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #356D5A;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+.error {
+    color: #e53e3e;
+    padding: 30px;
+    text-align: center;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+
+    .statsContainer {
+        flex-direction: column;
+    }
+
+    .statsCard {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .listingInfo {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .priceBar {
+        width: 40px;
+    }
+
+    .priceHistory {
+        height: 200px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .stat {
+        font-size: 28px;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .statsCard {
+        min-width: 180px;
+    }
+
+    .stat {
+        font-size: 24px;
+    }
+}
