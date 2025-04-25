@@ -11,9 +11,9 @@ import Footer from "../Footer/Footer";
 import HousingMarketOverview from "./HousingMarketOverview";
 
 var headerLinks = [
-    { title: "Reevalaute", id: "reevalaute" },
-    { title: "Housing Market", id: "housing-market" },
-    { title: "Contacts", id: "footer" }
+    { title: "Reevalaute", element: {type: "h3", attribute: "id", value: "reevaluate"} },
+    { title: "Housing Market", element: {type: "div", attribute: "id", value: "housing-market"} },
+    { title: "Contacts", element: {type: "footer", attribute: "id", value: "footer"} }
 ]
 
 const ResultsPage = () => {

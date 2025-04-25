@@ -21,9 +21,10 @@ public class RealEstateMarketController {
 
     @GetMapping("/{zipCode}")
     public ResponseEntity<?> getHousingMarketData(@PathVariable String zipCode) {
+        System.out.println("JAU METODEEEE");
         try {
             // Always get national data regardless of input parameter
-            Map<String, Object> data = realEstateMarketService.getHousingMarketData("United States");
+            Map<String, Object> data = realEstateMarketService.getHousingMarketData(zipCode);
             return ResponseEntity.ok(data);
         } catch (IOException e) {
             return ResponseEntity.status(500).body("Error: " + e.getMessage());

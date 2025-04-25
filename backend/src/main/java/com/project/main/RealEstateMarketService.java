@@ -18,8 +18,8 @@ import java.util.Map;
 public class RealEstateMarketService {
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateMarketService.class);
-    private static final String HEAT_INDEX_FILE = "C:/Users/jonas/Desktop/4 kursas/Programavimo Inzinerija/HomeIntel/backend/src/main/java/com/project/main/Data/HeatIndex.csv";
-    private static final String DATA_FILE = "C:/Users/jonas/Desktop/4 kursas/Programavimo Inzinerija/HomeIntel/backend/src/main/java/com/project/main/Data/DataFile.csv";
+    private static final String HEAT_INDEX_FILE = "backend\\src\\main\\java\\com\\project\\main\\Data\\HeatIndex.csv";
+    private static final String DATA_FILE = "backend\\src\\main\\java\\com\\project\\main\\Data\\DataFile.csv";
 
     public Map<String, Object> getHousingMarketData(String regionId) throws IOException {
         try {
