@@ -53,7 +53,9 @@ public class LandingPageController {
         System.out.println(gson.toJson(answer));
 
         double predPrice = PricePredictor.getPredictPrice(answer);
-        double evalScore = EvalScore.getEvalScor(answer, selectedValues);
+        JsonObject evalObject = answer.deepCopy();
+        evalObject.addProperty("Predicted Price", predPrice);
+        double evalScore = EvalScore.getEvalScor(evalObject, selectedValues);
 
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("PredictedPrice", predPrice);
@@ -86,7 +88,9 @@ public class LandingPageController {
             System.out.println(gson.toJson(answer));
 
             double predPrice = PricePredictor.getPredictPrice(answer);
-            double evalScore = EvalScore.getEvalScor(answer, selectedValues);
+            JsonObject evalObject = answer.deepCopy();
+            evalObject.addProperty("Predicted Price", predPrice);
+            double evalScore = EvalScore.getEvalScor(evalObject, selectedValues);
 
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("PredictedPrice", predPrice);
@@ -140,7 +144,7 @@ public class LandingPageController {
     }
 
     // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
-    // klase, pastatymas 2023, centrinis sildymas, kaina 250000
+    // klase, pastatymas 2023, centrinis sildymas, kaina 500000
 
     // https://www.aruodas.lt/butai-vilniuje-justiniskese-kopenhagos-g-talino-modernus-komfortiskas-naujas-1-3387648/?pos=3&search_pos=16
 
