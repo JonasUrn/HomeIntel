@@ -9,13 +9,18 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 const Navbar = ({ navLinks = [] }) => {
     const [showSideBar, setSideBar] = useState(false);
 
-    const scrollToSection = (id) => {
+    //Passing element data map
+    //element type (div, h3 etc...) class or id and value of attribute
+    //Example: {type: div, attribute: id, value: reevaluate}
+    const scrollToSection = (elementData) => {
         if (showSideBar) {
             setSideBar(false);
         }
 
         setTimeout(() => {
-            const element = document.getElementById(id);
+            const query = `${elementData['type']}[${elementData['attribute']}='${elementData['value']}`;
+            
+            const element = document.querySelector(query); //Neranda elementu pagal id
             if (element) {
                 const headerHeight = document.querySelector(`.${styles.headerBar}`)?.offsetHeight || 0;
                 const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
@@ -26,7 +31,7 @@ const Navbar = ({ navLinks = [] }) => {
                     behavior: 'smooth'
                 });
             } else {
-                console.warn(`Element with id "${id}" not found`);
+                console.warn(`Element with id "${elementData['value']}" not found`);
             }
         }, 100);
     };
@@ -59,8 +64,8 @@ const Navbar = ({ navLinks = [] }) => {
                         {links.map((link, index) => (
                             <a
                                 key={index}
-                                className={styles[link.id] || styles.navLink}
-                                onClick={() => scrollToSection(link.id)}
+                                className={styles[link.element['value']] || styles.navLink}
+                                onClick={() => scrollToSection(link.element)}
                             >
                                 {link.title}
                             </a>
@@ -77,9 +82,9 @@ const Navbar = ({ navLinks = [] }) => {
                         {links.map((link, index) => (
                             <NavItem key={index}>
                                 <NavText
-                                    className={styles[`${link.id}_`] || styles.navLink_}
+                                    className={styles[`${link.element['value']}_`] || styles.navLink_}
                                     style={{ fontSize: '20px', fontWeight: '350', cursor: 'pointer' }}
-                                    onClick={() => scrollToSection(link.id)}
+                                    onClick={() => scrollToSection(link.element['value'])}
                                 >
                                     {link.title}
                                 </NavText>
