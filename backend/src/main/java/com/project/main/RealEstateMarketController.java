@@ -22,7 +22,6 @@ public class RealEstateMarketController {
     @GetMapping("/{zipCode}")
     public ResponseEntity<?> getHousingMarketData(@PathVariable String zipCode) {
         try {
-            // Always get national data regardless of input parameter
             Map<String, Object> data = realEstateMarketService.getHousingMarketData("United States");
             return ResponseEntity.ok(data);
         } catch (IOException e) {
@@ -30,7 +29,6 @@ public class RealEstateMarketController {
         }
     }
 
-    // Add a default endpoint for when no zipCode is provided
     @GetMapping
     public ResponseEntity<?> getNationalHousingMarketData() {
         try {

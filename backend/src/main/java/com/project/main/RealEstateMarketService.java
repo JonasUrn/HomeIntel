@@ -23,17 +23,13 @@ public class RealEstateMarketService {
 
     public Map<String, Object> getHousingMarketData(String regionId) throws IOException {
         try {
-            // Always default to US national data
             String regionToSearch = "United States";
 
-            // Read data from CSV files
             Map<String, List<DataPoint>> heatIndexData = readCSVFile(HEAT_INDEX_FILE, regionToSearch);
             Map<String, List<DataPoint>> marketData = readCSVFile(DATA_FILE, regionToSearch);
 
-            // Prepare response data
             Map<String, Object> result = prepareResponseData(heatIndexData, marketData);
 
-            // Log success
             logger.info("Successfully loaded housing market data for {}", regionToSearch);
 
             return result;
@@ -49,12 +45,10 @@ public class RealEstateMarketService {
         Map<String, List<DataPoint>> result = new HashMap<>();
 
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            // Read header row
             String[] headers = reader.readNext();
             if (headers == null)
                 return result;
 
-            // Find date columns
             List<Integer> dateColumnIndices = new ArrayList<>();
             List<String> dateColumnNames = new ArrayList<>();
 
@@ -65,19 +59,16 @@ public class RealEstateMarketService {
                 }
             }
 
-            // Read data rows
             String[] nextLine;
             while ((nextLine = reader.readNext()) != null) {
                 if (nextLine.length <= 2)
-                    continue; // Skip incomplete rows
+                    continue;
 
                 String regionName = nextLine[2];
 
-                // Check if this row matches the United States
                 if (regionName.equals("United States")) {
                     List<DataPoint> dataPoints = new ArrayList<>();
 
-                    // Extract data for each date - focus on the most recent 12 months
                     int startIndex = Math.max(0, dateColumnIndices.size() - 12);
                     for (int i = startIndex; i < dateColumnIndices.size(); i++) {
                         int columnIndex = dateColumnIndices.get(i);
