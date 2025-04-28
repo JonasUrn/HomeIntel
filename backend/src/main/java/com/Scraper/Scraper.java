@@ -47,7 +47,7 @@ public class Scraper{
                     BypassCloudflare avoidCloudflare = new BypassCloudflare(linkToRealEstate, this.agentData);
                     this.doc = avoidCloudflare.getHTML();
                     
-                    if(this.doc == null){
+                    if(this.doc == null && !this.linkDomain.contains("zillow")){
                         System.out.println("Error during scraping data");
                         return;
                     }
@@ -87,9 +87,15 @@ public class Scraper{
                         ZillowScraper zillow = new ZillowScraper(allowedLinks, link, doc, this.linkToObject);
                         dict = zillow.getObjDetails();
                         zillow.PrintData("\n");
+                        // String[] houseLinkParts = linkToObject.split("_zpid/")[0].split("/");
+                        // String housePostId = houseLinkParts[houseLinkParts.length - 1];
+                        // System.out.printf("House link ID: %s", housePostId);
+                        // ZillowAPI zillow = new ZillowAPI(housePostId);
+                        // dict = zillow.getStructuredData();
+
                         break;
                     default:
-                        break;
+                        break;   
                 }
             }
             catch (Exception e){
