@@ -21,7 +21,7 @@ const Grid = ({ entries, onDataChange }) => {
         "Longitude",
         "Latitude",
     ];
-
+    //console.log(entries);
     const items = entries instanceof Map ? [...entries.entries()] : Object.entries(entries);
 
     const filteredItems = importanceOrder

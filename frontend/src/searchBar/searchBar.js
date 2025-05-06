@@ -57,7 +57,7 @@ const SearchBar = () => {
                             onChange={(e) => setInputValue(e.target.value)}
                         />
                     )}
-                    <button className={styles.searchButton} onClick={() => { handleModalOpen() }}>
+                    <button className={styles.searchButton} onClick={() => { handleModalOpen();  }}>
                         <FontAwesomeIcon icon={faArrowRight} className={styles.arrow} />
                     </button>
                 </div>

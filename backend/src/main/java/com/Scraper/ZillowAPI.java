@@ -30,8 +30,8 @@ public class ZillowAPI {
     public JsonObject requestData(){
         JsonObject finalAnswer = new JsonObject();
 
-        String requestUrl = String.format("%s/whybit~zillow-detail-scraper-task/runs?token=%s&zpid=%s", this.baseURL, this.key, this.houseId);
-
+        String requestUrl = String.format("%sactor-tasks/whybit~zillow-detail-scraper-task/runs?token=%s&zpid=%s", this.baseURL, this.key, this.houseId);
+        //Surasti tinkama endpoint ir su juo dirbti, gauti objekta
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
         Request request = new Request.Builder()

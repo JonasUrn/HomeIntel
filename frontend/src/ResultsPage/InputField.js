@@ -14,7 +14,7 @@ const InputField = ({ onSubmit }) => {
     };
 
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} id="new-input">
             <h3 className={styles.reevaluationTitle} id="reevaluate">Reevaluate the property</h3>
 
             <div className={styles.inputFieldContainer2}>

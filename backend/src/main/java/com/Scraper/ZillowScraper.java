@@ -3,8 +3,12 @@ package com.Scraper;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,19 +20,19 @@ public class ZillowScraper implements ScraperMethods{
     private String link;
     private String linkToObject;
     private Document doc;
-    private Dictionary<String, String> dictionary;
+    private Map<String, Object> dictionary;
     private final double acre_to_sqM = 4046.85642;
 
     public ZillowScraper(Dictionary<String, String[]> allowedLinks, String link, Document doc, String linkToObject){
         this.allowedLinks = allowedLinks;
         this.link = link;
         this.doc = doc;
-        this.dictionary = new Hashtable<>();
+        this.dictionary = new HashMap<>();
         this.linkToObject = linkToObject;
     }   
 
     @Override
-    public Dictionary<String, String> getObjDetails() {
+    public Map<String, Object> getObjDetails() {
 
         Elements basic_data = doc.select(allowedLinks.get(link)[1]); //Getting basic elements (price, address, bends quantity, house sqft)        
         
@@ -63,7 +67,9 @@ public class ZillowScraper implements ScraperMethods{
             dictionary.put("Total area", arr.toString());
             
             if(dictionary.get("Area") != null && dictionary.get("Price") != null){
-                Double price_per_sqFoot = Double.parseDouble(dictionary.get("Price")) / Double.parseDouble(dictionary.get("Area"));
+                Double area = Double.parseDouble((String) dictionary.get("Area"));
+                Double price = Double.parseDouble((String) dictionary.get("Price"));
+                Double price_per_sqFoot = price / area;
                 dictionary.put("PricePer", price_per_sqFoot.toString());
             }
         }
@@ -100,7 +106,7 @@ public class ZillowScraper implements ScraperMethods{
             if(dictionary.size() == 1 || dictionary.size() == 0){
                 return Double.parseDouble("0");
             }
-            return Double.parseDouble(dictionary.get("Lotarea").replace(",", ""));
+            return Double.parseDouble(dictionary.get("Lotarea").toString().replace(",", ""));
         }
         catch(Exception e){
             e.printStackTrace();
@@ -110,31 +116,31 @@ public class ZillowScraper implements ScraperMethods{
     }
     @Override
     public void PrintData(String title){
-        Enumeration<String> keys = null;
+        Set<String> keys = null;
         try {
             if (dictionary == null || dictionary.isEmpty()) {
                 System.out.println("Dictionary is empty. Trying again...");
                 TryScrapeAgain(3);
             }
-            keys = dictionary.keys();
+            keys = dictionary.keySet();
         } catch (Exception e) {
             TryScrapeAgain(3);
-            keys = dictionary.keys();
+            keys = dictionary.keySet();
         } finally {
             if (keys == null) {
                 System.out.println("Failed to scrape data.");
                 return;
             }
-            System.out.println(title);
-            while (keys.hasMoreElements()) {
-                String element = keys.nextElement();
+            Iterator<String> iterator = keys.iterator();
+            while (iterator.hasNext()) {
+                String element = iterator.next();
                 System.out.printf("%s\t%s\n", element, dictionary.get(element));
             }
             System.out.println("\n");
         }
     }
     @Override
-    public Dictionary<String, String> TryScrapeAgain(int timesToScrape){
+    public Map<String, Object> TryScrapeAgain(int timesToScrape){
         int iterator = 0;
         while(iterator < timesToScrape){
             dictionary = getObjDetails();
