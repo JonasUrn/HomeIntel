@@ -65,7 +65,7 @@ public class Scraper{
     public void AddInformation(){
         allowedLinks.put("https://www.aruodas.lt", new String[] {"dl[class='obj-details']", "dt", "span[class='fieldValueContainer']", "span[class='price-eur']", "span[class='price-per']", "h1[class='obj-header-text']"});
         allowedLinks.put("https://en.aruodas.lt", new String[] {"dl[class='obj-details']", "dt", "span[class='fieldValueContainer']", "span[class='price-eur']", "span[class='price-per']"});
-        allowedLinks.put("https://www.zillow.com/homedetails", new String[] {"div[class='styles__StyledDataModule-fshdp-8-106-0__sc-14rfp2w-0 kDCWqg']", "div[data-testid='home-details-chip-container']"});
+        allowedLinks.put("https://www.zillow.com/homedetails", new String[] {"div[class='styles__StyledDataModule-fshdp-8-106-0__sc-14rfp2w-0 kDCWqg']", "div[data-testid='home-info']"});
 
         this.links = new String[allowedLinks.size()];
         Enumeration<String> keys = allowedLinks.keys();

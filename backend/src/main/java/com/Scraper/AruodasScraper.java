@@ -123,7 +123,6 @@ public class AruodasScraper implements ScraperMethods{
 
     public String CorrectKey(String websiteText){
         String lowercaseText = websiteText.split(":")[0].trim().toLowerCase();
-        System.out.printf("Atejo: %s\tPo apdorojimo: %s\n", websiteText, lowercaseText);
         if(lowercaseText.contains("area")){
             return "Area";
         }

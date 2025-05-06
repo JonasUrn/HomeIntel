@@ -14,7 +14,7 @@ const SearchBar = () => {
 
     const handleModalOpen = () => {
         const link = document.querySelector("input[id='realEstateLink_']").value;
-        const domainNames = ["https://www.aruodas.lt/", "https://en.aruodas.lt/"];
+        const domainNames = ["https://www.aruodas.lt", "https://en.aruodas.lt", "https://www.zillow.com/homedetails"];
         var correctLink = false;
         for(let i = 0; i < domainNames.length; i++){
             if(link.includes(domainNames[i])){
