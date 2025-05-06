@@ -5,7 +5,9 @@ import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import com.Eval.EvalScore;
 import com.Eval.PricePredictor;
@@ -45,11 +47,11 @@ public class LandingPageController {
         String link = (String) data.get("data");
         Map<String, String> selectedValues = (Map<String, String>) data.get("selectedValues");
         Scraper scraper = new Scraper(link);
-        Dictionary<String, String> rez = scraper.GetResults();
+        Map<String, Object> rez = scraper.GetResults();
         Gson gson_ = new Gson();
         JsonObject answer = gson_.toJsonTree(rez).getAsJsonObject();
 
-        System.out.println("Scraoer results: ");
+        System.out.println("Scraper results: ");
         System.out.println(gson.toJson(answer));
 
         double predPrice = PricePredictor.getPredictPrice(answer);
@@ -112,8 +114,7 @@ public class LandingPageController {
 
         @PostMapping("/evaluate/reevaluate")
         public Map<String, Object> reevaluate(@RequestBody Map<String, Object> data) {
-            String prompt = (String) data.get("prompt");
-
+            String originalPrompt = (String) data.get("prompt");
             Map<String, Object> newValues = (Map<String, Object>) data.get("gridData");
 
             Object priceObject = data.get("price");
@@ -121,26 +122,95 @@ public class LandingPageController {
 
             System.out.println("Price: " + price);
 
-            JsonObject reevalObject = new JsonObject();
+            // Generate a new prompt for Gemini based on the grid data
+            StringBuilder promptBuilder = new StringBuilder();
+            promptBuilder.append("Property Reevaluation Request\n\n");
+            promptBuilder.append("I need to reevaluate a property with the following updated characteristics:\n\n");
 
+            // Add each property characteristic from gridData
             for (Map.Entry<String, Object> entry : newValues.entrySet()) {
                 String value = String.valueOf(entry.getValue());
-                reevalObject.addProperty(entry.getKey(), value);
+                promptBuilder.append(entry.getKey()).append(": ").append(value).append("\n");
             }
 
-            reevalObject.addProperty("Price", price);
-            reevalObject.addProperty("Extra information", prompt);
+            // Add price information if available
+            if (!price.isEmpty()) {
+                promptBuilder.append("Current Price: ").append(price).append("\n");
+            }
 
-            System.out.println("Reeval Object: " + reevalObject);
+            // Add any additional context from the original prompt
+            if (originalPrompt != null && !originalPrompt.isEmpty()) {
+                promptBuilder.append("\nAdditional Information:\n").append(originalPrompt);
+            }
 
-            Map<String, String> none = new HashMap<>();
-            double evalScore = EvalScore.getEvalScor(reevalObject, none);
+            // Instruct Gemini on what we need
+            promptBuilder.append("\n\nPlease analyze these property details and provide a structured evaluation " +
+                    "including a fair market value estimation and property assessment metrics. " +
+                    "Also include a 'Price' field with your estimated fair market value.");
 
-            System.out.println("Grid values: " + newValues);
+            String generatedPrompt = promptBuilder.toString();
+            System.out.println("Generated Gemini Prompt: " + generatedPrompt);
 
-            return Map.of("message", "Evaluation successful", "status", "OK");
+            try {
+                // Call Gemini API using the same method as the evaluation function
+                JsonObject answer = promptApi.getStructuredResponse(generatedPrompt);
+                System.out.println("Gemini API Response: ");
+                System.out.println(gson.toJson(answer));
+
+                // Check if Gemini returned a Price property
+                String geminiPrice = price; // Default to original price
+                if (answer.has("Price")) {
+                    try {
+                        // Try to get the price as a string
+                        geminiPrice = answer.get("Price").getAsString();
+                        System.out.println("Using Gemini provided price: " + geminiPrice);
+                    } catch (Exception e) {
+                        System.out.println("Error extracting Gemini price, using original price: " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("Gemini did not provide a Price property, using original price: " + price);
+                }
+
+                // Create the reevalObject with the original approach
+                JsonObject reevalObject = new JsonObject();
+                for (Map.Entry<String, Object> entry : newValues.entrySet()) {
+                    String value = String.valueOf(entry.getValue());
+                    reevalObject.addProperty(entry.getKey(), value);
+                }
+
+                // Use the Gemini price if available, otherwise use the original price
+                reevalObject.addProperty("Price", geminiPrice);
+                reevalObject.addProperty("Extra information", originalPrompt);
+
+                // Calculate predicted price from Gemini response
+                double predPrice = PricePredictor.getPredictPrice(answer);
+
+                // Keep the original evaluation scoring but with potentially updated price
+                Map<String, String> none = new HashMap<>();
+                double evalScore = EvalScore.getEvalScor(reevalObject, none);
+
+                System.out.println("Grid values: " + newValues);
+
+                // Return enhanced response with Gemini insights
+                Map<String, Object> responseMap = new HashMap<>();
+                responseMap.put("message", "Evaluation successful");
+                responseMap.put("status", "OK");
+                responseMap.put("PredictedPrice", predPrice);
+                responseMap.put("PredictedScore", evalScore);
+                responseMap.put("UsedPrice", geminiPrice);
+
+                // Convert Gemini response to Map for JSON serialization
+                Gson gson = new Gson();
+                Map<String, Object> geminiResponseMap = gson.fromJson(answer, new TypeToken<Map<String, Object>>() {
+                }.getType());
+                responseMap.put("geminiResponse", geminiResponseMap);
+
+                return responseMap;
+            } catch (IOException e) {
+                System.err.println("Error calling Gemini API: " + e.getMessage());
+                return Map.of("message", "Evaluation failed", "status", "ERROR", "error", e.getMessage());
+            }
         }
-
     }
 
     // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
@@ -151,20 +221,21 @@ public class LandingPageController {
     // https://www.zillow.com/homedetails/1111-Delsea-Dr-Westville-NJ-08093/38758443_zpid/
 
     @PostMapping("/evaluate/scraper")
-    public Dictionary<String, String> getScraper(@RequestBody Map<String, Object> linkToRealEstate)
+    public Map<String, Object> getScraper(@RequestBody Map<String, Object> linkToRealEstate)
             throws InterruptedException {
         // By getting results, the scraper gets this.doc = null and in mpst cases it
         // throws TimeOutException
         Scraper scraper = new Scraper(linkToRealEstate.get("data").toString());
-        Dictionary<String, String> realEstateData = new Hashtable<>();
+        Map<String, Object> realEstateData = new Hashtable<>();
         try {
             realEstateData = scraper.GetResults();
             Thread.sleep(500);
             if (realEstateData.size() > 0) {
-                Enumeration<String> keys = realEstateData.keys();
-                while (keys.hasMoreElements()) {
-                    String key = keys.nextElement().toString();
-                    System.out.printf("\n%s\t%s", key, realEstateData.get(key));
+                Set<String> keys = realEstateData.keySet();
+                Iterator<String> iter = keys.iterator();
+                while (iter.hasNext()) {
+                    String key = iter.next();
+                    System.out.printf("\n%s\t%s", key, (String) realEstateData.get(key));
                 }
                 return realEstateData;
             } else {
@@ -173,6 +244,7 @@ public class LandingPageController {
         } catch (Error e) {
             System.out.println("Error in method getScraper() backend");
         }
+        System.out.printf("Got data in getScraper(): %s", realEstateData);
         return realEstateData;
     }
 }

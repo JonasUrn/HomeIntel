@@ -31,11 +31,13 @@ const ResultsPage = () => {
     const { geminiResponse, PredictedPrice, PredictedScore } = propertyData;
     const realEstateInfo = geminiResponse || {};
     const price = realEstateInfo?.Price || "N/A";
+    
+    console.log(realEstateInfo);
 
     // Create real estate details object based on current geminiResponse
     const buildRealEstateDetails = (data) => {
         return {
-            Address: data?.Addres || "Address not available",
+            Address: data?.Address || "Address not available",
             Area: data?.Area || "Area not available",
             City: data?.City || "City not available",
             Country: data?.Country || "Country not available",

@@ -1,7 +1,9 @@
 package com.Scraper;
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.apache.commons.lang3.time.StopWatch;
 import org.jsoup.Jsoup;
@@ -47,7 +49,7 @@ public class Scraper{
                     BypassCloudflare avoidCloudflare = new BypassCloudflare(linkToRealEstate, this.agentData);
                     this.doc = avoidCloudflare.getHTML();
                     
-                    if(this.doc == null){
+                    if(this.doc == null && !this.linkDomain.contains("zillow")){
                         System.out.println("Error during scraping data");
                         return;
                     }
@@ -61,7 +63,7 @@ public class Scraper{
     }
 
     public void AddInformation(){
-        allowedLinks.put("https://www.aruodas.lt", new String[] {"dl[class='obj-details']", "dt", "span[class='fieldValueContainer']", "span[class='price-eur']", "span[class='price-per']"});
+        allowedLinks.put("https://www.aruodas.lt", new String[] {"dl[class='obj-details']", "dt", "span[class='fieldValueContainer']", "span[class='price-eur']", "span[class='price-per']", "h1[class='obj-header-text']"});
         allowedLinks.put("https://en.aruodas.lt", new String[] {"dl[class='obj-details']", "dt", "span[class='fieldValueContainer']", "span[class='price-eur']", "span[class='price-per']"});
         allowedLinks.put("https://www.zillow.com/homedetails", new String[] {"div[class='styles__StyledDataModule-fshdp-8-106-0__sc-14rfp2w-0 kDCWqg']", "div[data-testid='home-details-chip-container']"});
 
@@ -73,23 +75,29 @@ public class Scraper{
         }
     }
 
-    public Dictionary<String, String> GetResults(){
-        Dictionary<String, String> dict = new Hashtable<>();
+    public Map<String, Object> GetResults(){
+        Map<String, Object> dict = new HashMap<>();
         if(isCorrectData){
             try{
                 switch (this.linkDomain) {
                     case "https://en.aruodas.lt":
                         AruodasScraper aruodas = new AruodasScraper(allowedLinks, link, doc);
                         dict = aruodas.getObjDetails(); 
-                        aruodas.PrintData("\n");
+                        aruodas.PrintData("Jau printData() metode:\n");
                         break;
                     case "https://www.zillow.com":
                         ZillowScraper zillow = new ZillowScraper(allowedLinks, link, doc, this.linkToObject);
                         dict = zillow.getObjDetails();
                         zillow.PrintData("\n");
+                        // String[] houseLinkParts = linkToObject.split("_zpid/")[0].split("/");
+                        // String housePostId = houseLinkParts[houseLinkParts.length - 1];
+                        // System.out.printf("House link ID: %s", housePostId);
+                        // ZillowAPI zillow = new ZillowAPI(housePostId);
+                        // dict = zillow.getStructuredData();
+
                         break;
                     default:
-                        break;
+                        break;   
                 }
             }
             catch (Exception e){

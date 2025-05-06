@@ -4,10 +4,13 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,15 +21,20 @@ import java.util.Map;
 public class RealEstateMarketService {
 
     private static final Logger logger = LoggerFactory.getLogger(RealEstateMarketService.class);
-    private static final String HEAT_INDEX_FILE = "backend\\src\\main\\java\\com\\project\\main\\Data\\HeatIndex.csv";
-    private static final String DATA_FILE = "backend\\src\\main\\java\\com\\project\\main\\Data\\DataFile.csv";
+
+    // Use classpath location instead of file system paths
+    private static final String HEAT_INDEX_FILE = "classpath:data/HeatIndex.csv";
+    private static final String DATA_FILE = "classpath:data/DataFile.csv";
+
+    @Autowired
+    private ResourceLoader resourceLoader;
 
     public Map<String, Object> getHousingMarketData(String regionId) throws IOException {
         try {
             // Always default to US national data
             String regionToSearch = "United States";
 
-            // Read data from CSV files
+            // Read data from CSV files using ResourceLoader
             Map<String, List<DataPoint>> heatIndexData = readCSVFile(HEAT_INDEX_FILE, regionToSearch);
             Map<String, List<DataPoint>> marketData = readCSVFile(DATA_FILE, regionToSearch);
 
@@ -44,11 +52,19 @@ public class RealEstateMarketService {
         }
     }
 
-    private Map<String, List<DataPoint>> readCSVFile(String filePath, String regionToSearch)
+    private Map<String, List<DataPoint>> readCSVFile(String resourcePath, String regionToSearch)
             throws IOException, CsvValidationException {
         Map<String, List<DataPoint>> result = new HashMap<>();
 
-        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+        Resource resource = resourceLoader.getResource(resourcePath);
+        if (!resource.exists()) {
+            logger.error("Resource not found: {}", resourcePath);
+            return result;
+        }
+
+        logger.info("Reading from resource: {}", resource.getURI());
+
+        try (CSVReader reader = new CSVReader(new InputStreamReader(resource.getInputStream()))) {
             // Read header row
             String[] headers = reader.readNext();
             if (headers == null)

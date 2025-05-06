@@ -2,10 +2,11 @@ package com.Scraper;
 
 import java.util.Dictionary;
 import java.util.Enumeration;
+import java.util.Map;
 
 public interface ScraperMethods {
 
-    public Dictionary<String, String> getObjDetails();
+    public Map<String, Object> getObjDetails();
     public void PrintData(String title) throws InterruptedException;
-    public Dictionary<String, String> TryScrapeAgain(int timesToScrape) throws InterruptedException;
+    public Map<String, Object> TryScrapeAgain(int timesToScrape) throws InterruptedException;
 }
