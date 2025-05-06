@@ -13,26 +13,27 @@ const SearchBar = () => {
     const [error, setError] = useState(null);
 
     const handleModalOpen = () => {
-        setClick(true);
+        const link = document.querySelector("input[id='realEstateLink_']").value;
+        const domainNames = ["https://www.aruodas.lt/", "https://en.aruodas.lt/"];
+        var correctLink = false;
+        for(let i = 0; i < domainNames.length; i++){
+            if(link.includes(domainNames[i])){
+                correctLink = true;
+                break;
+            }
+        }
+
+        if(correctLink){
+            setClick(true);
+        }
+        else{
+            alert("You have to provide a link from aruodas.lt real estate");
+        }
     };
 
     const handleModalClose = () => {
         setClick(false);
     };
-
-    // const scraperHandler = async () => {
-    //     try{
-    //         const data = document.querySelector("input[id='realEstateLink_']");
-    //         const link = data.value;
-    //         var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
-    //             data: link
-    //         });
-    //         console.log(`Response: ${Object.keys(response)}`);
-    //     }
-    //     catch{
-    //         console.log("Klaida");
-    //     }
-    // }
 
     return (
         <div className={styles.searchBarStatistics}>
