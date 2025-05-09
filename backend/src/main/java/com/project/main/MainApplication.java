@@ -17,5 +17,7 @@ public class MainApplication {
 
 	public static void main(String[] args) throws InterruptedException {
 		SpringApplication.run(MainApplication.class, args);
+		// https://www.zillow.com/homedetails/156-Old-Church-Rd-Greenwich-CT-06830/240521150_zpid/
+		// https://www.zillow.com/homedetails/100-Windham-Rd-Willimantic-CT-06226/59010343_zpid/
 	}
 }    

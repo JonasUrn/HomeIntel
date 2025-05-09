@@ -13,26 +13,29 @@ const SearchBar = () => {
     const [error, setError] = useState(null);
 
     const handleModalOpen = () => {
-        setClick(true);
-    };
+        if (!switchToTextBox) {
+            const link = inputValue;
+            const domainNames = [
+                "https://www.aruodas.lt",
+                "https://en.aruodas.lt",
+                "https://www.zillow.com/homedetails"
+            ];
+            const correctLink = domainNames.some(domain => link.includes(domain));
+    
+            if (correctLink) {
+                setClick(true);
+            } else {
+                alert("You have to provide a link from aruodas.lt or zillow.com real estate");
+            }
+        } else {
+            // In prompt mode, just open the modal directly
+            setClick(true);
+        }
+    };    
 
     const handleModalClose = () => {
         setClick(false);
     };
-
-    // const scraperHandler = async () => {
-    //     try{
-    //         const data = document.querySelector("input[id='realEstateLink_']");
-    //         const link = data.value;
-    //         var response = await ax.post("http://localhost:8080/api/evaluate/scraper", {
-    //             data: link
-    //         });
-    //         console.log(`Response: ${Object.keys(response)}`);
-    //     }
-    //     catch{
-    //         console.log("Klaida");
-    //     }
-    // }
 
     return (
         <div className={styles.searchBarStatistics}>
