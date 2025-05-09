@@ -226,7 +226,7 @@ public class LandingPageController {
         // By getting results, the scraper gets this.doc = null and in mpst cases it
         // throws TimeOutException
         Scraper scraper = new Scraper(linkToRealEstate.get("data").toString());
-        Map<String, Object> realEstateData = new Hashtable<>();
+        Map<String, Object> realEstateData = new Hashtable<>S();
         try {
             realEstateData = scraper.GetResults();
             Thread.sleep(500);

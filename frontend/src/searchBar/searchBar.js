@@ -13,23 +13,25 @@ const SearchBar = () => {
     const [error, setError] = useState(null);
 
     const handleModalOpen = () => {
-        const link = document.querySelector("input[id='realEstateLink_']").value;
-        const domainNames = ["https://www.aruodas.lt", "https://en.aruodas.lt", "https://www.zillow.com/homedetails"];
-        var correctLink = false;
-        for(let i = 0; i < domainNames.length; i++){
-            if(link.includes(domainNames[i])){
-                correctLink = true;
-                break;
+        if (!switchToTextBox) {
+            const link = inputValue;
+            const domainNames = [
+                "https://www.aruodas.lt",
+                "https://en.aruodas.lt",
+                "https://www.zillow.com/homedetails"
+            ];
+            const correctLink = domainNames.some(domain => link.includes(domain));
+    
+            if (correctLink) {
+                setClick(true);
+            } else {
+                alert("You have to provide a link from aruodas.lt or zillow.com real estate");
             }
-        }
-
-        if(correctLink){
+        } else {
+            // In prompt mode, just open the modal directly
             setClick(true);
         }
-        else{
-            alert("You have to provide a link from aruodas.lt real estate");
-        }
-    };
+    };    
 
     const handleModalClose = () => {
         setClick(false);
