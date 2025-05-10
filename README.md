@@ -1,73 +1,131 @@
-# HomeIntel
+# 🏡 HomeIntel
 
-## Overview
-HomeIntel is a project designed to evaluate real estate properties based on their qualities and listing price.
+## 📌 Overview
+**HomeIntel** is a full-stack web application designed to intelligently evaluate real estate listings by analyzing their features and estimating a fair market price. The system leverages **AI models**, **React** for the frontend, and **Spring Boot** for the backend to deliver real-time property assessments. Users can provide a URL (from Aruodas or Zillow) or input property data manually, prioritize different aspects of a property, and receive a detailed evaluation score.
 
-## React Code Rules
-Ensure you are following these rules for development:
-- Use arrow functions: const fnc = () => {}
-- USE MODULE STYLES!!! File names: master.module.css => usage in file: styles.exampleClass => read more here: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
-- Each component has its own file
-- Each component group has its own folder
+## 🚧 React Development Rules
 
-## Rules
-Ensure you are following these rules for development:
-- Create a new branch in your computer for each feature
-- Branch name: First letter of name + first letter of surname + feature name. Ex.: JU-create-header | JU - Jonas Urnezius
-- Do development on that branch
-- Push branch to Github
-- Open a new Pull Request
-- Assign a peer-reviewer
+To maintain code consistency and scalability, follow these frontend coding conventions:
+
+- Use **arrow functions**:  
+  `const myFunction = () => {};`
+
+- **Use CSS Modules only**:  
+  - File naming: `ComponentName.module.css`  
+  - Usage:  
+    ```js
+    import styles from './ComponentName.module.css';
+    <div className={styles.exampleClass}></div>
+    ```  
+  - More info: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
+
+- Each **component must be in its own file**  
+- Group related components in their **own folders**
+
+## 🛠️ Git Workflow Rules
+
+- Create a **new branch** for each feature/task.
+- Branch naming format:  
+  `[Initials]-[feature-name]`  
+  Example: `JU-create-header` (JU = Jonas Urnėžius)
+- Do development on that branch.
+- Push branch to GitHub.
+- Open a **Pull Request** and assign a reviewer.
 - Each small task has its own branch!
 
-## Installation & Setup
-To get started with HomeIntel, follow these steps:
+## 🔧 Installation & Setup
 
-### Clone the Repository
+### 1. Clone the Repository
 ```sh
 git clone https://github.com/JonasUrn/HomeIntel.git
 cd HomeIntel
 ```
 
-### Create or Switch to a Branch
+### 2. Create or Switch to a Branch
 ```sh
 git checkout -b [branch_name]
 ```
 
-### Add and Commit Changes
+### 3. Add and Commit Changes
 ```sh
 git add --all
 git commit -m "[Your commit message]"
 ```
 
-### Push Changes
+### 4. Push Changes
 ```sh
 git push -u origin [branch_name]
 ```
 
-## Features
--To be added...
+## ✨ Features
 
-## Requirements
-Ensure you have the following installed:
-- To be added...
+- 🔗 **URL-Based Input**  
+  Fetches real estate data automatically from Aruodas or Zillow URLs.
 
-## Running the Project
-1. Install dependencies:
-   ```sh
-   ...
-   ```
-2. Run the main script:
-   ```sh
-   ...
-   ```
+- 🧠 **AI-Powered Evaluation**  
+  Evaluates property value and quality using machine learning techniques with `com.google.gson.*` for JSON parsing.
 
-## Contribution
-Contributions are welcome! To contribute:
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to your fork and submit a pull request
+- 🎯 **Priority Selection**  
+  Users can prioritize different aspects of a property using a color-coded system (Red = not important, Green = very important).
 
-## Contact
-For questions or contributions, feel free to reach out via [GitHub Issues](https://github.com/JonasUrn/HomeIntel/issues).
+- 📝 **Editable Property Fields**  
+  All property data is editable, enabling tailored evaluations based on user knowledge.
+
+- 📊 **Visual Evaluation Indicator**  
+  Displays a circular indicator to show the overall property score using color gradients from green to red.
+
+- 🔁 **Real-Time Recalculation**  
+  Instantly updates results when any field is changed or additional information is provided.
+
+## 🧰 Requirements
+
+Ensure the following tools are installed:
+
+- Java 17+
+- Node.js & npm (v16+ recommended)
+- Maven
+- Internet connection
+- IDE such as IntelliJ IDEA or VS Code
+
+## ▶️ Running the Project
+
+### 1. Start the Frontend
+```sh
+cd frontend
+npm install
+npm start
+```
+
+### 2. Start the Backend
+Open your IDE and run the following class:
+```
+src/main/java/com/homeintel/MainApplication.java
+```
+
+This will launch the Spring Boot backend server.
+
+> The backend uses `com.google.gson.*` for AI data parsing and integration.
+
+## 🤝 Contribution
+
+1. Fork the repository  
+2. Create a feature branch  
+3. Commit your changes  
+4. Push to your fork  
+5. Submit a pull request and assign a reviewer
+
+## 📬 Contact
+
+Have questions or feedback?  
+Submit an issue via [GitHub Issues](https://github.com/JonasUrn/HomeIntel/issues)
+
+## 📄 License
+MIT License
+
+Copyright (c) 2025 HomeIntel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
