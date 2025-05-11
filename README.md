@@ -59,6 +59,7 @@ Insert one line:
 API_HOME_INTEL=[GEMINI_API_KEY]
 ```
 Where GEMINI_API_KEY is your API key from https://aistudio.google.com/apikey
+
 Save it
 
 ### 5. Add and Commit Changes
