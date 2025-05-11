@@ -41,18 +41,34 @@ git clone https://github.com/JonasUrn/HomeIntel.git
 cd HomeIntel
 ```
 
-### 2. Create or Switch to a Branch
+### 2. Intstall frontend part
+```sh
+cd frontend
+npm install
+```
+
+### 3. Create or Switch to a Branch
 ```sh
 git checkout -b [branch_name]
 ```
 
-### 3. Add and Commit Changes
+### 4. Create .env file
+In ./HomenIntel path create .env file
+Insert one line:
+```sh
+API_HOME_INTEL=[GEMINI_API_KEY]
+```
+Where GEMINI_API_KEY is your API key from https://aistudio.google.com/apikey
+
+Save it
+
+### 5. Add and Commit Changes
 ```sh
 git add --all
 git commit -m "[Your commit message]"
 ```
 
-### 4. Push Changes
+### 6. Push Changes
 ```sh
 git push -u origin [branch_name]
 ```
@@ -92,7 +108,6 @@ Ensure the following tools are installed:
 ### 1. Start the Frontend
 ```sh
 cd frontend
-npm install
 npm start
 ```
 
