@@ -33,6 +33,7 @@ To maintain code consistency and scalability, follow these frontend coding conve
 - Open a **Pull Request** and assign a reviewer.
 - Each small task has its own branch!
 
+## 🏗 Testing table
 | Action / Test Step                                    | Expected Outcome                        | Actual Outcome (Screenshot)            |
 |-------------------------------------------------------|------------------------------------------|----------------------------------------|
 | User enters prompt and presses evaluate               | The program evaluates the prompt and shows results | ![Evaluate](images/evaluate.png) |
