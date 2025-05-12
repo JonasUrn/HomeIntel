@@ -1,37 +1,53 @@
 # 🏡 HomeIntel
 
-## 📌 Overview
-**HomeIntel** is a full-stack web application designed to intelligently evaluate real estate listings by analyzing their features and estimating a fair market price. The system leverages **AI models**, **React** for the frontend, and **Spring Boot** for the backend to deliver real-time property assessments. Users can provide a URL (from Aruodas or Zillow) or input property data manually, prioritize different aspects of a property, and receive a detailed evaluation score.
+## 🏠 Team Information
 
-## 🚧 React Development Rules
+- **Team Name:** HomeIntel  
+- **Members:**  
+  - Jonas Urnėžius  
+  - Aronas Butkevičius  
+  - Ernest Tretjakev  
+  - Ignas Tautvaišas  
 
-To maintain code consistency and scalability, follow these frontend coding conventions:
+## 📌 Project Overview
 
-- Use **arrow functions**:  
-  `const myFunction = () => {};`
+Our objective is to develop a web application that analyzes real estate listings and returns a fair market price and evaluation score using AI-driven techniques. The system supports links from platforms such as **Aruodas** and **Zillow**, and generates intelligent, data-backed property assessments.
 
-- **Use CSS Modules only**:  
-  - File naming: `ComponentName.module.css`  
-  - Usage:  
-    ```js
-    import styles from './ComponentName.module.css';
-    <div className={styles.exampleClass}></div>
-    ```  
-  - More info: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
+## ✨ Features
 
-- Each **component must be in its own file**  
-- Group related components in their **own folders**
+- 🔗 **URL-Based Input**  
+  Fetches real estate data automatically from Aruodas or Zillow URLs.
 
-## 🛠️ Git Workflow Rules
+- 🧠 **AI-Powered Evaluation**  
+  Evaluates property value and quality using machine learning techniques with `com.google.gson.*` for JSON parsing.
 
-- Create a **new branch** for each feature/task.
-- Branch naming format:  
-  `[Initials]-[feature-name]`  
-  Example: `JU-create-header` (JU = Jonas Urnėžius)
-- Do development on that branch.
-- Push branch to GitHub.
-- Open a **Pull Request** and assign a reviewer.
-- Each small task has its own branch!
+- 🎯 **Priority Selection**  
+  Users can prioritize different aspects of a property using a color-coded system (Red = not important, Green = very important).
+
+- 📝 **Editable Property Fields**  
+  All property data is editable, enabling tailored evaluations based on user knowledge.
+
+- 📊 **Visual Evaluation Indicator**  
+  Displays a circular indicator to show the overall property score using color gradients from green to red.
+
+- 🔁 **Real-Time Reevaluation**  
+  Updates results when any field is changed or additional information is provided.
+
+## 🚀 How to Use the Website
+
+1. On the homepage, paste a valid real estate listing URL from Aruodas or Zillow, **or** switch to the prompt section to manually enter property details.
+2. Click the **green arrow button** to proceed.
+3. Select your evaluation priorities across various categories (color-coded as follows):  
+   - 🟥 **Red** – Not important  
+   - 🟨 **Yellow** – Neutral  
+   - 🟩 **Green** – Important  
+4. Click the button again to submit your choices.
+5. The result page will display:
+   - **Top Left:** AI-generated evaluation score  
+   - **Top Right:** Estimated fair price  
+   - A colored indicator ring showing the overall evaluation (green = good, red = poor)
+6. In the center section, you'll find detailed property information. These fields are editable.
+7. If you make any changes or provide additional information, simply click the button again to **recalculate the score** based on updated data.
 
 ## 🏗 Testing table
 | Action / Test Step                                    | Expected Outcome                        | Actual Outcome (Screenshot)            |
@@ -43,6 +59,15 @@ To maintain code consistency and scalability, follow these frontend coding conve
 | User presses one of the navbar options                | The program navigates to the selected page | ![Navbar Option](images/navbar_option.png) |
 | User enters an invalid prompt                         | The program displays an error message | ![Invalid Prompt](images/invalid_prompt.png) |
 
+## 🧰 Requirements
+
+Ensure the following tools are installed:
+
+- Java 17+
+- Node.js & npm (v16+ recommended)
+- Maven
+- Internet connection
+- IDE such as IntelliJ IDEA or VS Code
 
 ## 🔧 Installation & Setup
 
@@ -84,36 +109,6 @@ git commit -m "[Your commit message]"
 git push -u origin [branch_name]
 ```
 
-## ✨ Features
-
-- 🔗 **URL-Based Input**  
-  Fetches real estate data automatically from Aruodas or Zillow URLs.
-
-- 🧠 **AI-Powered Evaluation**  
-  Evaluates property value and quality using machine learning techniques with `com.google.gson.*` for JSON parsing.
-
-- 🎯 **Priority Selection**  
-  Users can prioritize different aspects of a property using a color-coded system (Red = not important, Green = very important).
-
-- 📝 **Editable Property Fields**  
-  All property data is editable, enabling tailored evaluations based on user knowledge.
-
-- 📊 **Visual Evaluation Indicator**  
-  Displays a circular indicator to show the overall property score using color gradients from green to red.
-
-- 🔁 **Real-Time Recalculation**  
-  Instantly updates results when any field is changed or additional information is provided.
-
-## 🧰 Requirements
-
-Ensure the following tools are installed:
-
-- Java 17+
-- Node.js & npm (v16+ recommended)
-- Maven
-- Internet connection
-- IDE such as IntelliJ IDEA or VS Code
-
 ## ▶️ Running the Project
 
 ### 1. Start the Frontend
@@ -130,7 +125,35 @@ src/main/java/com/homeintel/MainApplication.java
 
 This will launch the Spring Boot backend server.
 
-> The backend uses `com.google.gson.*` for AI data parsing and integration.
+## 🚧 React Development Rules
+
+To maintain code consistency and scalability, follow these frontend coding conventions:
+
+- Use **arrow functions**:  
+  `const myFunction = () => {};`
+
+- **Use CSS Modules only**:  
+  - File naming: `ComponentName.module.css`  
+  - Usage:  
+    ```js
+    import styles from './ComponentName.module.css';
+    <div className={styles.exampleClass}></div>
+    ```  
+  - More info: https://create-react-app.dev/docs/adding-a-css-modules-stylesheet/
+
+- Each **component must be in its own file**  
+- Group related components in their **own folders**
+
+## 🛠️ Git Workflow Rules
+
+- Create a **new branch** for each feature/task.
+- Branch naming format:  
+  `[Initials]-[feature-name]`  
+  Example: `JU-create-header` (JU = Jonas Urnėžius)
+- Do development on that branch.
+- Push branch to GitHub.
+- Open a **Pull Request** and assign a reviewer.
+- Each small task has its own branch!
 
 ## 🤝 Contribution
 
