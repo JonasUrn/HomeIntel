@@ -213,13 +213,6 @@ public class LandingPageController {
         }
     }
 
-    // 3 kambariu, VIlnius, Gedimino pr. 3, 3 aukstas 10 aukstu name, A++ ekonomine
-    // klase, pastatymas 2023, centrinis sildymas, kaina 500000
-
-    // https://www.aruodas.lt/butai-vilniuje-justiniskese-kopenhagos-g-talino-modernus-komfortiskas-naujas-1-3387648/?pos=3&search_pos=16
-
-    // https://www.zillow.com/homedetails/1111-Delsea-Dr-Westville-NJ-08093/38758443_zpid/
-
     @PostMapping("/evaluate/scraper")
     public Map<String, Object> getScraper(@RequestBody Map<String, Object> linkToRealEstate)
             throws InterruptedException {
