@@ -33,6 +33,16 @@ To maintain code consistency and scalability, follow these frontend coding conve
 - Open a **Pull Request** and assign a reviewer.
 - Each small task has its own branch!
 
+| Action / Test Step                                    | Expected Outcome                        | Actual Outcome (Screenshot)            |
+|-------------------------------------------------------|------------------------------------------|----------------------------------------|
+| User enters prompt and presses evaluate               | The program evaluates the prompt and shows results | ![Evaluate](images/evaluate.png) |
+| User enters new data and presses reevaluate           | The program evaluates the new data and shows updated results | ![Reevaluate](images/reevaluate.png) |
+| User presses home button after evaluation             | The program navigates to the home screen | ![Home Button](images/home_button.png) |
+| User presses the logo                                  | The program redirects to the home screen | ![Logo](images/logo.png) |
+| User presses one of the navbar options                | The program navigates to the selected page | ![Navbar Option](images/navbar_option.png) |
+| User enters an invalid prompt                         | The program displays an error message | ![Invalid Prompt](images/invalid_prompt.png) |
+
+
 ## 🔧 Installation & Setup
 
 ### 1. Clone the Repository
